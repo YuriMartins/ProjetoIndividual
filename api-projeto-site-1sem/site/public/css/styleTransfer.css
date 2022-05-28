@@ -1,0 +1,120 @@
+.formTrasfer {
+    width: 135%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    text-align: left;
+    align-items: flex-start;
+    margin-top: 10%;
+}
+
+.inputCpf {
+    border: 1px solid #000000;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    width: 31vw;
+    height: 10vh;
+    text-align: center;
+    font-size: 32px;
+    background: url('../assets/iconCpf.svg') no-repeat;
+    background-position-y: center;
+    background-position-x: right;
+}
+
+.inputTrasfer {
+    border: 1px solid #000000;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    width: 31vw;
+    height: 10vh;
+    text-align: center;
+    font-size: 32px;
+    background: url('../assets/iconDinheiro.svg') no-repeat;
+    background-position-y: center;
+    background-position-x: right;
+}
+
+.inputDate {
+    border: 1px solid #000000;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    width: 31vw;
+    height: 10vh;
+    text-align: center;
+    font-size: 32px;
+    background: url('../assets/iconDate.svg') no-repeat;
+    background-position-y: center;
+    background-position-x: right;
+}
+
+.textAreaTrasfer {
+    border: 1px solid #000000;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    width: 31vw;
+    height: 18vh;
+    text-align: center;
+    font-size: 20px;
+    background: url('../assets/iconDescribe.svg') no-repeat;
+    background-position-y: bottom;
+    background-position-x: right;
+}
+
+.row10 {
+    display: flex;
+    flex-direction: row;
+}
+
+.buttonEnviar {
+    width: 12.8vw;
+    height: 8vh;
+    background: linear-gradient(101.05deg, #1F8EBE -5.36%, #440495 29.46%, #440495 56.03%, #B102CD 81.92%);
+    border-radius: 16px;
+    border-color: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5vw;
+    line-height: 36px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    border: transparent;
+    cursor: pointer;
+}
+
+.column1 {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-left: 4%;
+}
+
+.buttonLimpar {
+    width: 12.8vw;
+    height: 8vh;
+    background-color: black;
+    border-radius: 16px;
+    border-color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5vw;
+    line-height: 36px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    border: transparent;
+    cursor: pointer;
+}
+
+body {
+    background: url('../assets/backgroundTrasfer.svg') no-repeat;
+    background-position-y: center;
+    background-position-x: 50vw;
+
+}

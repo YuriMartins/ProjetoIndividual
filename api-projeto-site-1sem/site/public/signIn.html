@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleLogin.css">
+    <title>Login</title>
+</head>
+
+<body>
+
+    <main-header2></main-header2>
+
+    <div class="login">
+        <h1 class="h1Title">Olá, Bem vindo</h1>
+        <form class="formLogin" action="">
+
+            <h4 class="h4Forms">Login:</h4>
+            <input class="inputLogin" type="email" id="inputEmail" />
+            <h4 class="h4Forms">Senha:</h4>
+            <input class="inputPassword" type="password" id="inputPassword" />
+            <div class="row4">
+                <input class="radioInput" type="radio" name="">
+                <h4 class="lembreMe">Lembre me</h4>
+                <a href="recoverPassword.html">
+                    <h4>Esqueci a senha</h4>
+                </a>
+            </div>
+            <button onclick="entrar()" class="button2" type="button">Entrar</button>
+            <div class="row4">
+
+                <h4>Não possui conta?<a href="signUp.html"> <span class="spanCadastre">Cadastre-se</span></h4></a>
+
+            </div>
+        </form>
+    </div>
+
+    <img class="wavesLogin" src="assets/wave.svg" alt="wavesLogin" />
+
+
+
+
+</body>
+
+</html>
+<script>
+    var loggIn = Number(sessionStorage.getItem("idCliente"));
+
+    loggIn > 0 ? inLoggin() : null;
+    function entrar() {
+        //aguardar();
+
+        var emailVar = inputEmail.value;
+        var senhaVar = inputPassword.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            //cardErro.style.display = "block"
+            //mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            //finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.emailCliente = json.emailCliente;
+                    sessionStorage.nomeCliente = json.nomeCliente;
+                    sessionStorage.idCliente  = json.idCliente;
+                    sessionStorage.cpfCliente  = json.cpfCliente;
+
+                    setTimeout(function () {
+                         window.location = "dashboard.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    //console.error(texto);
+                    // finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        //cardErro.style.display = "none"
+    }
+
+</script>
+<script src="js/components.js"></script>

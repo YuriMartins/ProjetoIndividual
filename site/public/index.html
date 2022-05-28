@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Bank Run</title>
+</head>
+
+<body>
+
+    <main-header></main-header>
+
+
+
+    <div class="home">
+
+        <div class="containerHome">
+            <h2>Um banco que corre para você, um banco que corre com você,</h2>
+            <h1> um Bank Run.</h1>
+            <button class="button1" onclick="openModalReadPlusHome()">Saber Mais</button>
+            <a href="https://www.facebook.com/"><button class="button2">
+                    <img src="assets/logoFace.svg" alt="Facebook">
+                </button> </a>
+
+            <a href="https://br.linkedin.com/"><button class="button2">
+                    <img src="assets/logoLinkedin.svg" alt="linkedin">
+                </button></a>
+
+            <a href="#contact"><button class="button2">
+                    <img src="assets/logoContact.svg" alt="Contato">
+
+                </button></a>
+            <div class="row2">
+                <div>
+                    <h3>100Mil</h3>
+                    <h4>Cliente Ativos</h4>
+                </div>
+                <div>
+                    <h3>24/7</h3>
+                    <h4>Atendimentos</h4>
+                    <h4>ao cliente</h4>
+                </div>
+                <div>
+                    <h3>90Mil</h3>
+                    <h4>Clientes Sastifeitos</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="about">
+
+        <div class="about1">
+            <h5><span class="space">Um</span> banco 100% Digital para suprir todas as suas necessidades, sem cartão sem
+                taxa, Banco Run</h5>
+            <h4>Temos como objetivo ser um banco 100% tecnológico, um banco descentralizado, focado apenas na inovação,
+                um banco totalmente novo, sem cartão de crédito ou débito, para evitar problemas de furto, roubo,
+                extravio etc.. </h4>
+            <img class="imgAbout" src="assets/backgroundAbout.svg" alt="backgroundAbout">
+        </div>
+
+        <div class="about2">
+
+            <div class="row">
+                <div class="cardAbout1">
+                    <div class="iconAbout1">
+                        <img class="imgIconAbout1" src="assets/iconCard1.svg" alt="cartao">
+                    </div>
+                    <h5>Sem Cartão</h5>
+                    <h4>Sem a necessidade de um cartão, pagamentos e outros serviços efetuados pelo site!</h4>
+                </div>
+
+                <div class="cardAbout1">
+                    <div class="iconAbout1">
+                        <img class="imgIconAbout1" src="assets/iconCard2.svg" alt="cartao">
+                    </div>
+                    <h5>Segurança</h5>
+                    <h4>Segurança Máxima para todas as operações efetuadas na plataforma, sempre pensando em você!</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="cardAbout1">
+                    <div class="iconAbout1">
+                        <img class="imgIconAbout1" src="assets/iconCard3.svg" alt="cartao">
+                    </div>
+                    <h5>Digital e Inovador</h5>
+                    <h4>Um banco 100% digital e 100% inovador, buscando sempre a melhor
+                        tecnologia!</h4>
+                </div>
+
+                <div class="cardAbout1">
+                    <div class="iconAbout1">
+                        <img class="imgIconAbout1" src="assets/iconCard4.svg" alt="cartao">
+                    </div>
+                    <h5>Sem taxas</h5>
+                    <h4>Sem taxas ou juros especiais para Transações ou emprestimo!</h4>
+                </div>
+            </div>
+
+            <h5><span class="space">Economizar</span> dinheiro para organizar e determinar algo como prioridade no
+                futuro</h5>
+            <h4 class="h4About2">Economizar pode fazer você gerenciar suas finanças, se você começar a economizar
+                agora e ter sucesso em alcançar o que você quer.</h4>
+        </div>
+    </div>
+    </div>
+
+    <!--footer inicio-->
+
+    <div class="contact">
+        <h1>Entre em contato conosco!</h1>
+
+        <form action="mailto:bankRun@gmail.com" class="forms" method="post" enctype="text/plain">
+            <input type="text" name="Nome:" class="inputContact" placeholder="Qual a seu nome?" type="text">
+            <input type="email" name="E-mail:" class="inputContact" placeholder="Qual a seu e-mail?" type="text">
+            <textarea name="Assunto:" placeholder="Qual a sua dúvida?" type="text"></textarea>
+
+            <button type="submit" onclick="openModalReadPlusContact()" class="button1">Enviar</button>
+            <button type="reset" class="button3">Limpar</button>
+        </form>
+        <img class="imgWaves" src="assets/wave.svg" alt="waves">
+
+    </div>
+
+     <main-footer></main-footer> 
+</body>
+
+</html>
+
+<script src="js/components.js"></script>

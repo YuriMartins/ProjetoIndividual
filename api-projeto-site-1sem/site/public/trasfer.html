@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styleDashboard.css">
+    <link rel="stylesheet" href="./css/styleTransfer.css">
+    <title>Transferência</title>
+</head>
+
+<body>
+    <div class="sideBar" onclick="sideBarFunction()" id="sideBar">
+        <div>
+            <img src="./assets/iconDefault.svg" class="iconDefaultUser" alt="">
+        </div>
+        <img class="iconWallet" src="./assets/iconWallet.svg" alt="">
+        <img class="iconTrasfer" src="./assets/iconTrasfer.svg" alt="">
+        <img class="iconStatement" src="./assets/iconStatement.svg" alt="">
+        <div>
+            <img class="exitIcon" src="./assets/iconExit.svg" alt="">
+            <img class="imgLine" src="./\assets/iconLine.svg" alt="">
+            <img class="imgConfig" src="./assets/iconConfig.svg" alt="">
+        </div>
+    </div>
+    <div class="side" id="side">
+        <div>
+            <div class="row">
+                <h4 class="nameSide" id="usuario3"></h4>
+                <img class="imgUserSide" src="assets/iconExitSmall.svg" alt="">
+            </div>
+            <h5 class="emailSide" id="email"></h5>
+        </div>
+        <a href="dashboard.html">
+            <h6 class="walletH6">Minha carteira</h6>
+        </a>
+        <a href="trasfer.html">
+            <h6 class="trasferH6">Transferência</h6>
+        </a>
+        <a href="statement.html">
+            <h6 class="statementH6">Extrato</h6>
+        </a>
+        <div>
+            <h6 class="exitH6">Sair</h6>
+            <h6 class="configH6">Configurações</h6>
+        </div>
+    </div>
+    <div class="dashboard">
+        <div class="row7">
+            <h2 class="h2Title">Transferência</h2>
+        </div>
+
+        <form action="" class="formTrasfer">
+            <h2 class="h2Title">Informe o cpf do beneficiário:</h2>
+            <input type="number" class="inputCpf">
+
+            <h2 class="h2Title">Valor de transfêrencia:</h2>
+            <input type="number" class="inputTrasfer">
+
+            <h2 class="h2Title">Data de transferência:</h2>
+            <input type="datetime" class="inputDate">
+            <h2 class="h2Title">Descrição:</h2>
+            <div class="row10">
+                <textarea type="text" class="textAreaTrasfer"></textarea>
+                <div class="column1">
+                    <button type="button" class="buttonEnviar">Enviar</button>
+                    <button type="reset" class="buttonLimpar">Limpar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>
+
+
+<script>
+
+    usuario3.innerHTML = `${sessionStorage.nomeCliente}`;
+    email.innerHTML = `${sessionStorage.emailCliente}`;
+
+    function sideBarFunction() {
+        side.style.display = `flex`
+        sideBar.addEventListener("dblclick", () => {
+            side.style.display = `none`
+        })
+
+
+    }
+
+    //      function sideBarFunction2() { outro jeito de fazer double click
+    //   side.style.display = `none`
+    //      }
+
+
+
+</script>

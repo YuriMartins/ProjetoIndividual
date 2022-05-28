@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styleDashboard.css">
+    <title>Carteira</title>
+</head>
+
+<body onload="minhaConta()">
+    <div class="sideBar" onclick="sideBarFunction()" id="sideBar">
+        <div>
+            <img src="./assets/iconDefault.svg" class="iconDefaultUser" alt="">
+        </div>
+        <img class="iconWallet" src="./assets/iconWallet.svg" alt="">
+        <img class="iconTrasfer" src="./assets/iconTrasfer.svg" alt="">
+        <img class="iconStatement" src="./assets/iconStatement.svg" alt="">
+        <div>
+            <img class="exitIcon" src="./assets/iconExit.svg" alt="">
+            <img class="imgLine" src="./\assets/iconLine.svg" alt="">
+            <img class="imgConfig" src="./assets/iconConfig.svg" alt="">
+        </div>
+    </div>
+    <div class="side" id="side">
+        <div>
+            <div class="row">
+                <h4 class="nameSide" id="usuario3"></h4>
+                <img class="imgUserSide" src="assets/iconExitSmall.svg" alt="">
+            </div>
+            <h5 class="emailSide" id="email"></h5>
+        </div>
+        <a href="dashboard.html"><h6 class="walletH6">Minha carteira</h6></a>
+        <a href="trasfer.html"><h6 class="trasferH6">Transferência </h6></a>
+        <a href="statement.html"><h6 class="statementH6">Extrato</h6></a>
+        <div>
+            <h6 class="exitH6">Sair</h6>
+            <h6 class="configH6">Configurações</h6>
+        </div>
+    </div>
+    <div class="dashboard">
+        <div class="row7">
+            <h2 class="h2Title">Carteira</h2>
+            <h2>Olá seja bem-vindo </h2><span class="h2Title" id="usuario"></span>
+        </div>
+        <h1 class="balanceH1">Saldo:</h1>
+        <div class="row8">
+            <span class="balanceSpan" id="hidden1">R$ 0,00</span>
+            <span class="balanceSpan" style="display: none;" id="hidden2"></span>
+            <button class="trasparent" onclick="buttonHidden()">
+                <img class="imgHidden" src="assets/hidden.svg" alt="">
+            </button>
+        </div>
+        <div class="cardWallet">
+            <div class="row9">
+                <h6>Detalhes Carteira</h6>
+                <h6>BANK RUN</h6>
+            </div>
+            <div class="row10">
+                <h5>principais detalhes sobre sua
+                    carteira e conta.</h5>
+                <div style="width: 20%;">
+                    <img style="margin-right: 10%;" src="./assets/chip.svg" alt="">
+                    <img src="./assets/sinal.svg" alt="">
+                </div>
+
+            </div>
+            <div class="card1">
+                <img class="imgLogo" src="assets/LogoSmall.svg" alt="">
+                <h6 id="usuario2">
+
+                </h6>
+                <h5 id="cpf"></h5>
+            </div>
+            <div class="card2">
+                <h2>Dinheiro de
+                    volta:</h2>
+                <h3 id="cashBack"></h3>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    usuario.innerHTML = `, ${sessionStorage.nomeCliente}`;
+    usuario2.innerHTML = `${sessionStorage.nomeCliente}`;
+    usuario3.innerHTML = `${sessionStorage.nomeCliente}`;
+    cpf.innerHTML = `${sessionStorage.cpfCliente}`;
+    email.innerHTML = `${sessionStorage.emailCliente}`;
+
+    function sideBarFunction() {
+        side.style.display = `flex`
+        sideBar.addEventListener("dblclick", () => {
+            side.style.display = `none`
+        })
+
+
+    }
+    function buttonHidden() {
+        if (hidden1.style.display == `none`) {
+            hidden1.style.display = `flex`
+            hidden2.style.display = `none`
+        }
+        else {
+            hidden1.style.display = `none`
+            hidden2.style.display = `flex`
+        }
+    }
+    //      function sideBarFunction2() { outro jeito de fazer double click
+    //   side.style.display = `none`
+    //      }
+
+    function minhaConta() {
+        const idUsuario = sessionStorage.idCliente;
+
+        fetch(`/usuarios/listarConta/${idUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((resposta) => {
+            // saldoConta
+            resposta.json().then((data) => {
+                console.log(data);
+                var saldoConta = `${data[0].saldoConta}`
+                var cashBack2 = `${data[0].cashBackConta}`
+                var cashBack3 = saldoConta * cashBack2   
+                hidden2.innerHTML =  `R$ ${saldoConta.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
+                cashBack.innerHTML = `${cashBack3.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
+            })                   
+
+
+            // if (resposta.ok) {
+            //     window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+            //     window.location = "/dashboard/mural.html";
+            //     limparFormulario();
+            //     finalizarAguardar();
+            // } else if (resposta.status == 404) {
+            //     window.alert("Deu 404!");
+            // } else {
+            //     throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            // }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+
+    }
+
+</script>

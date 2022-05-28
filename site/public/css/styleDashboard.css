@@ -1,0 +1,911 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,900&display=swap');
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+html {
+    scroll-behavior: smooth;
+
+}
+
+body {
+    line-height: 1;
+    height: 100vh;
+}
+
+body::-webkit-scrollbar {
+    width: 12px;
+    /* width of the entire scrollbar */
+}
+
+
+
+body::-webkit-scrollbar-thumb {
+    background: linear-gradient(91.16deg, #1F8EBE 39.35%, #440495 46.4%, #440495 54.76%, #B102CD 62.28%);
+    /* color of the scroll thumb */
+    border-radius: 120px;
+    /* roundness of the scroll thumb */
+    border: 2px solid white;
+    /* creates padding around scroll thumb */
+}
+
+ol,
+ul,
+a {
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    text-align: center;
+    cursor: pointer;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 60px;
+    text-align: center;
+    background: linear-gradient(91.16deg, #1F8EBE 39.35%, #440495 46.4%, #440495 54.76%, #B102CD 62.28%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 39px;
+    text-align: center;
+    background: linear-gradient(91.16deg, #1F8EBE 39.35%, #440495 46.4%, #440495 54.76%, #B102CD 62.28%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    text-align: center;
+    background: linear-gradient(91.16deg, #1F8EBE 39.35%, #440495 46.4%, #440495 54.76%, #B102CD 62.28%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 39px;
+    text-align: center;
+}
+
+a:hover {
+    font-weight: 900;
+
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+header {
+    width: 100%;
+    height: 14%;
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    border-width: 3px;
+    border-style: solid;
+    border-top: 0;
+    border-left: 0;
+    border-radius: 0;
+    border-image: linear-gradient(90deg, #1F8EBE 0%, #440495 31.77%, #440495 66.67%, #B102CD 100%) 1;
+    /* linear-gradient(90deg, #1F8EBE 0%, #440495 31.77%, #440495 66.67%, #B102CD 100%); */
+    z-index: 3;
+}
+
+nav {
+    height: 70%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1%;
+}
+
+.logo {
+    margin-top: 1%;
+    background: url('../assets/Logo.svg') no-repeat;
+    width: 210px;
+    height: 110px;
+}
+
+nav ul {
+    display: flex;
+    column-gap: 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+}
+
+.button1 {
+    width: 12.8vw;
+    height: 8vh;
+    background: linear-gradient(101.05deg, #1F8EBE -5.36%, #440495 29.46%, #440495 56.03%, #B102CD 81.92%);
+    border-radius: 16px;
+    border-color: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5vw;
+    line-height: 36px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    border: transparent;
+    cursor: pointer;
+}
+
+.home {
+    padding-top: 10%;
+    width: 100%;
+    height: flex;
+    background: url('../assets/gifHome.gif') no-repeat;
+    background-position-y: 15vw;
+    background-position-x: 47vw;
+}
+
+.containerHome {
+    margin-top: 8%;
+    margin-left: 8%;
+    width: 40%;
+}
+
+.containerHome h1 {
+    text-align: start;
+    margin-top: 4%;
+}
+
+.containerHome h2 {
+    text-align: start;
+}
+
+.containerHome .button1 {
+    width: 40%;
+    height: 10vh;
+    margin-right: 60%;
+    margin-bottom: 10%;
+    margin-top: 10%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.55);
+    border-radius: 16px;
+    font-size: 32px;
+    text-transform: capitalize;
+    transition: 0, 3s;
+    cursor: pointer;
+}
+
+.containerHome .button1:nth-child(odd) {
+    text-align: right;
+    padding-right: 6%;
+    transform: perspective(500px) rotateY(-20deg);
+    transform: matrix(1, -0.04, 0.06, 1, 0, 0);
+}
+
+.containerHome .button1:nth-child(odd):hover {
+    padding-right: 5%;
+    transform: perspective(200px) rotateY(-30deg);
+}
+
+.containerHome .button1:nth-child(even) {
+    text-align: left;
+    padding-left: 10%;
+    transform: perspective(500px) rotateY(20deg);
+    transform: matrix(1, -0.04, 0.06, 1, 0, 0);
+}
+
+.containerHome .button1:nth-child(even):hover {
+    transform: perspective(200px) rotateY(30deg);
+    padding-left: 5%;
+}
+
+
+/* .containerHome .button1:hover {
+    width: 50%;
+    trasform: perspective(200px) rotateY(45deg);
+    padding-left: 5%;
+    transform: matrix(1, -0.14, 0.06, 1, 0, 0);
+} */
+
+.containerHome .button2 {
+    margin-left: -4%;
+    margin-right: 3%;
+    border-color: transparent;
+    border: transparent;
+}
+
+.row2 {
+    margin-top: 7%;
+    margin-bottom: 12%;
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+
+}
+
+.row {
+    margin-top: -3%;
+    margin-bottom: 12%;
+    display: flex;
+    flex-direction: row;
+    gap: 19px;
+
+}
+
+.row h4 {
+    line-height: 25px;
+}
+
+.about {
+    padding-top: 6%;
+    width: 100%;
+    height: flex;
+    background: linear-gradient(123.48deg, #1F8EBE 0%, #440495 31.46%, #440495 64.46%, #B102CD 99.01%);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+}
+
+.about1 {
+    width: 50%;
+}
+
+.about1 h5 {
+    margin-left: 10%;
+    margin-right: 24%;
+}
+
+h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    color: #FFFFFF;
+    text-align: start;
+}
+
+.about1 h4 {
+    margin-left: 10%;
+    margin-top: 2%;
+    margin-right: 24%;
+    color: #FFFFFF;
+    line-height: 22px;
+    text-align: start;
+}
+
+.about2 {
+    width: 50%;
+    margin-right: 2%;
+    display: flex;
+    flex-direction: column;
+}
+
+.h4About2 {
+    color: #FFFFFF;
+    margin-right: 4%;
+}
+
+.space {
+    margin-left: 5%;
+}
+
+.imgAbout {
+    margin-top: -12%;
+    width: 1100px;
+}
+
+.cardAbout1 {
+    width: 50%;
+    margin-right: 4%;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(33.2px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.cardAbout1:hover {
+    background-color: #FFFFFF;
+}
+
+.cardAbout1 h5 {
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2%;
+}
+
+
+.cardAbout1 h4 {
+    color: #FFFFFF;
+    margin-bottom: 4%;
+    margin-right: 2%;
+    margin-left: 2%;
+}
+
+.iconAbout1 {
+    margin-top: 8%;
+    margin-bottom: 12%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 37%;
+    height: 16.4vh;
+    border-radius: 100px;
+    background: linear-gradient(180deg, #1F8EBE 0%, #440495 32.29%, #440495 67.19%, #B102CD 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact {
+    padding-top: 6%;
+    width: 100%;
+    height: flex;
+    border-radius: 16px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.contact h1 {
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 3%;
+}
+
+form {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+form,
+input {
+    box-sizing: border-box;
+    width: 60%;
+    height: 30vh;
+    margin-bottom: 4%;
+    border-radius: 16px;
+    border-color: #1F8EBE;
+    border-width: 1;
+}
+
+form,
+textarea {
+    box-sizing: border-box;
+    width: 60%;
+    height: 80vh;
+    margin-bottom: 4%;
+    border-radius: 16px;
+    border-color: #1F8EBE;
+    border-width: 1;
+}
+
+form,
+textarea::placeholder {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 39px;
+    /* identical to box height */
+    text-align: left;
+    color: #000000;
+}
+
+form,
+input::placeholder {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 39px;
+    /* identical to box height */
+    text-align: left;
+
+    color: #000000;
+}
+
+form,
+input::after {
+
+    border-radius: 20px;
+    border-image: linear-gradient(0deg, #1F8EBE 0%, #440495 31.77%, #440495 66.67%, #B102CD 100%) 1;
+}
+
+form .button1 {
+    height: 30vh;
+}
+
+form .button3 {
+    margin-top: 1%;
+}
+
+.button3 {
+    width: 8vw;
+    height: 30vh;
+    background-color: black;
+    border-radius: 16px;
+    border-color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5vw;
+    line-height: 36px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    border: transparent;
+    cursor: pointer;
+}
+
+.imgWaves {
+    width: 100%;
+}
+
+footer {
+    margin-top: 2%;
+    background: url('../assets/logotipoIDCM.svg') no-repeat;
+    background-position-y: top;
+    background-position-x: left;
+    background-color: #fff;
+    width: 100%;
+    height: 40vh;
+    flex-direction: row;
+}
+
+footer ul {
+    list-style: inside;
+    margin-top: 20%;
+    color: #000000;
+}
+
+footer li {
+    margin-top: 20%;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+.footerSubject1 {
+    margin-top: 3%;
+    margin-left: 20%;
+    margin-right: 9%;
+    float: left;
+}
+
+.footerSubject2 {
+    margin-top: 3%;
+    float: left;
+    margin-right: 9%;
+}
+
+.footerSubject3 {
+    margin-top: 3%;
+    float: left;
+    margin-right: 9%;
+}
+
+.footerSubject4 {
+    margin-top: 3%;
+    float: left;
+    margin-right: 9%;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+}
+
+.sideBar {
+    width: 8vw;
+    height: 100vh;
+    background: linear-gradient(180deg, #1F8EBE 0%, #440495 32.29%, #440495 69.27%, #B102CD 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    cursor: pointer;
+}
+
+.iconDefaultUser::selection {
+    background-color: transparent;
+}
+
+.imgLine {
+    margin-bottom: 20%;
+}
+
+.imgLine::selection {
+    background-color: transparent;
+    color: transparent;
+}
+
+.exitIcon::selection {
+    background-color: transparent;
+    color: transparent;
+}
+
+.imgConfig::selection {
+    background-color: transparent;
+    color: transparent;
+}
+
+.iconTrasfer::selection {
+    background-color: transparent;
+    color: transparent;
+}
+
+.iconStatement {
+    margin-bottom: 50%;
+}
+
+.iconStatement::selection {
+    background-color: transparent;
+    color: transparent;
+}
+
+.iconWallet {
+    margin-top: 50%;
+}
+
+.iconWallet::selection {
+    background-color: transparent;
+    color: transparent;
+}
+
+.side {
+    width: 20vw;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(31, 142, 190, 0.9) 0%, rgba(68, 4, 149, 0.9) 31.25%, rgba(68, 4, 149, 0.9) 64.58%, rgba(177, 2, 205, 0.9) 100%);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+
+}
+
+.side .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: -20%;
+    width: 150%
+}
+
+.emailSide {
+    margin-left: -20%;
+    margin-top: -15%;
+}
+
+.side h4 {
+    color: white;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.side h5 {
+    color: white;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.side h6 {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #FFFFFF;
+}
+
+.side .imgUserSide {}
+
+.side .exitH6 {
+    margin-bottom: 25%;
+    cursor: pointer;
+}
+
+.side .statementH6 {
+    margin-bottom: 60%;
+    cursor: pointer;
+}
+
+.side .walletH6 {
+    margin-top: 32%;
+    cursor: pointer;
+}
+
+.side .trasferH6 {
+    cursor: pointer;
+}
+
+.side .configH6 {
+    cursor: pointer;
+}
+
+.row7 {
+    display: flex;
+    flex-direction: row;
+    width: 200%;
+}
+
+.h2Title {
+    margin-right: 25%;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    /* identical to box height */
+    background: linear-gradient(90deg, #1F8EBE 0%, #440495 35.94%, #440495 64.57%, #B102CD 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.dashboard {
+    margin-left: 8%;
+    margin-top: 2%;
+}
+
+.dashboard .balanceH1 {
+    margin-top: 10%;
+    margin-left: -68%;
+}
+
+.dashboard .balanceSpan {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 73px;
+
+    color: #000000;
+}
+
+.dashboard .row8 {
+    display: flex;
+    flex-direction: row;
+}
+
+.dashboard .imgHidden {
+    margin-left: 5%;
+}
+
+.dashboard .trasparent {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.dashboard h2 {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    /* identical to box height */
+    background: linear-gradient(90deg, #1F8EBE 0%, #440495 35.94%, #440495 64.57%, #B102CD 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.dashboard .cardWallet {
+    margin-top: 2%;
+    margin-left: 0%;
+    width: 180%;
+    height: 62%;
+    border-radius: 32px;
+    background: linear-gradient(90deg, #1F8EBE 0%, #440495 31.25%, #440495 67.71%, #B102CD 100%);
+}
+
+.cardWallet h6 {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #FFFFFF;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 5%;
+}
+
+.cardWallet .row9 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cardWallet .row10 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 2%;
+    margin-top: 2%;
+}
+
+.cardWallet h5 {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    width: 30%;
+    padding-left: 5%;
+    padding-right: 5%;
+    line-height: 30px;
+    color: #FFFFFF;
+}
+
+.card1 {
+    width: 40%;
+}
+
+.card2 {
+    background-color: #FFFFFF;
+
+}
+
+.cardWallet .imgLogo {
+    margin-top: 5%;
+    padding-left: 5%;
+}
+
+.dashboard .dash {
+    width: 10%;
+    height: 40%;
+    background-color: #000000;
+}
+
