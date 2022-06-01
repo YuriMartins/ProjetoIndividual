@@ -18,10 +18,9 @@ senhaCliente varchar(20)
 create	table conta (
 idConta int primary key auto_increment,
 saldoConta float,
-emprestimoConta float,
-qntdExtratoConta int,
 cashBackConta float,
-dataExtratoConta datetime,
+dataTrasferencia datetime,
+descTrasferencia varchar(255),
 fkCliente int,
 foreign key (fkCliente) references usuario(idCliente)
 );

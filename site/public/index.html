@@ -20,7 +20,7 @@
         <div class="containerHome">
             <h2>Um banco que corre para você, um banco que corre com você,</h2>
             <h1> um Bank Run.</h1>
-            <button class="button1" onclick="openModalReadPlusHome()">Saber Mais</button>
+            <button class="button1" onclick="openModalReadPlusHome()">  Saber Mais</button>
             <a href="https://www.facebook.com/"><button class="button2">
                     <img src="assets/logoFace.svg" alt="Facebook">
                 </button> </a>
@@ -51,7 +51,7 @@
         </div>
     </div>
 
-
+  <a name="about"></a>
     <div class="about">
 
         <div class="about1">
@@ -60,7 +60,7 @@
             <h4>Temos como objetivo ser um banco 100% tecnológico, um banco descentralizado, focado apenas na inovação,
                 um banco totalmente novo, sem cartão de crédito ou débito, para evitar problemas de furto, roubo,
                 extravio etc.. </h4>
-            <img class="imgAbout" src="assets/backgroundAbout.svg" alt="backgroundAbout">
+            <img class="    " src="assets/backgroundAbout.svg" alt="backgroundAbout">
         </div>
 
         <div class="about2">
@@ -88,7 +88,7 @@
                     <div class="iconAbout1">
                         <img class="imgIconAbout1" src="assets/iconCard3.svg" alt="cartao">
                     </div>
-                    <h5>Digital e Inovador</h5>
+                    <h5 style="width: 50%;">Digital e Inovador</h5>
                     <h4>Um banco 100% digital e 100% inovador, buscando sempre a melhor
                         tecnologia!</h4>
                 </div>
@@ -111,7 +111,7 @@
     </div>
 
     <!--footer inicio-->
-
+    <a name="contact"></a>
     <div class="contact">
         <h1>Entre em contato conosco!</h1>
 
@@ -127,9 +127,35 @@
 
     </div>
 
-     <main-footer></main-footer> 
+     <main-footer></main-footer>
+      
+     <div id="modalHome" class="modalBody">
+        <div class="modalReadPlus">
+            <div class="containerReadPlus">
+                <div class="modalCheck">
+                    <img src="assets/" alt="check">
+                </div>
+                <button onclick="buttonBack()" class="modalBack">&times;</button>
+    
+            </div>
+            <h2>Contato enviado com sucesso!</h2>
+            <button class="button8" onclick="buttonBack()">Fechar</button>
+    
+        </div>
+    </div>
+
+
 </body>
 
 </html>
 
 <script src="js/components.js"></script>
+<script>
+     function buttonBack() {
+modalHome.style.display = 'none'
+}
+    function openModalReadPlusHome() {
+        modalHome.style.display = 'block'
+
+    }
+</script>

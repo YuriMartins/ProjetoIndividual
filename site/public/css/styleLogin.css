@@ -1,11 +1,10 @@
  .login {
-     padding-top: 14%;
+     padding-top: 13%;
      width: 100%;
      height: flex;
      background: url('../assets/loginBackground.svg') no-repeat;
-     background-position-y: 400%;
-     background-size: 850px;
-     background-position-x: 1%;
+     background-position-y: 300%;
+     background-position-x: left;
  }
 
  .h1Title {
@@ -17,6 +16,7 @@
      display: flex;
      width: 30%;
      height: 50vh;
+     margin-top: 4%;
      
  }
 
@@ -58,7 +58,7 @@
  }
 
  .lembreMe {
-     margin-left: -22%;
+     margin-left: -20%22%;
  }
 
  .button2 {

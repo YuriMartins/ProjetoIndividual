@@ -1,11 +1,13 @@
 .formTrasfer {
     width: 135%;
     display: flex;
+    height: 95%;
     flex-direction: column;
     justify-content: left;
     text-align: left;
     align-items: flex-start;
-    margin-top: 10%;
+    margin-top: 12%;
+    
 }
 
 .inputCpf {
@@ -115,6 +117,6 @@
 body {
     background: url('../assets/backgroundTrasfer.svg') no-repeat;
     background-position-y: center;
-    background-position-x: 50vw;
+    background-position-x: 47.8vw;
 
 }

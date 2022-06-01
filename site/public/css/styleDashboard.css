@@ -112,6 +112,7 @@ html {
 body {
     line-height: 1;
     height: 100vh;
+    overflow-x: hidden;
 }
 
 body::-webkit-scrollbar {
@@ -641,7 +642,7 @@ body {
 
 .sideBar {
     width: 8vw;
-    height: 100vh;
+    height: 114vh;
     background: linear-gradient(180deg, #1F8EBE 0%, #440495 32.29%, #440495 69.27%, #B102CD 100%);
     display: flex;
     flex-direction: column;
@@ -699,7 +700,7 @@ body {
 
 .side {
     width: 20vw;
-    height: 100vh;
+    height: 114vh;
     background: linear-gradient(180deg, rgba(31, 142, 190, 0.9) 0%, rgba(68, 4, 149, 0.9) 31.25%, rgba(68, 4, 149, 0.9) 64.58%, rgba(177, 2, 205, 0.9) 100%);
     display: none;
     flex-direction: column;
@@ -845,8 +846,8 @@ body {
 .dashboard .cardWallet {
     margin-top: 2%;
     margin-left: 0%;
-    width: 180%;
-    height: 62%;
+    width: 150%;
+    height: 70%;
     border-radius: 32px;
     background: linear-gradient(90deg, #1F8EBE 0%, #440495 31.25%, #440495 67.71%, #B102CD 100%);
 }

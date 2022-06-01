@@ -23,7 +23,6 @@ class Header2 extends HTMLElement {
         this.innerHTML = `
       <header>
       <nav>
-
           <div class="logo"></div>
 
           <ul>
@@ -48,7 +47,7 @@ class Footer extends HTMLElement {
         this.innerHTML = `
 <footer>
         <div>
-            <img src="../assets/Logo.svg" alt="logo">
+            <img src="./assets/Logo.svg" alt="logo">
         </div>
         <div class="footerSubject1">
             <h2>Serviços</h2>

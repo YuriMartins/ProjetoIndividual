@@ -106,7 +106,6 @@ section {
 
 html {
     scroll-behavior: smooth;
-
 }
 
 body {
@@ -247,9 +246,10 @@ nav {
 }
 
 .logo {
-    margin-top: 1%;
+    margin-top: 2.5%;
     background: url('../assets/Logo.svg') no-repeat;
-    width: 210px;
+    background-size: 120px;
+    width: 200px;
     height: 110px;
 }
 
@@ -318,7 +318,7 @@ nav ul {
 
 .containerHome .button1:nth-child(odd) {
     text-align: right;
-    padding-right: 6%;
+    padding-right: 3%;
     transform: perspective(500px) rotateY(-20deg);
     transform: matrix(1, -0.04, 0.06, 1, 0, 0);
 }
@@ -433,7 +433,7 @@ h5 {
 
 .imgAbout {
     margin-top: -12%;
-    width: 1100px;
+    width: 900px;
 }
 
 .cardAbout1 {
@@ -446,10 +446,13 @@ h5 {
     display: flex;
     flex-direction: column;
     text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+
 }
 
 .cardAbout1:hover {
-    background-color: #FFFFFF;
+    background-color: #16161679;
 }
 
 .cardAbout1 h5 {
@@ -460,12 +463,7 @@ h5 {
 }
 
 
-.cardAbout1 h4 {
-    color: #FFFFFF;
-    margin-bottom: 4%;
-    margin-right: 2%;
-    margin-left: 2%;
-}
+
 
 .iconAbout1 {
     margin-top: 8%;
