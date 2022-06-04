@@ -514,6 +514,8 @@ input {
     border-radius: 16px;
     border-color: #1F8EBE;
     border-width: 1;
+    padding-left: 2%;
+    font-size: 32px;
 }
 
 form,
@@ -525,6 +527,8 @@ textarea {
     border-radius: 16px;
     border-color: #1F8EBE;
     border-width: 1;
+    padding-left: 2%;
+    font-size: 32px;
 }
 
 form,
@@ -551,7 +555,9 @@ input::placeholder {
 
     color: #000000;
 }
-
+.inputContact {
+    text-align: center;
+}
 form,
 input::after {
 

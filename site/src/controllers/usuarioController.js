@@ -40,6 +40,7 @@ function listarConta(req, res) {
         );
 }
 
+
 function entrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
@@ -75,6 +76,64 @@ function entrar(req, res) {
     }
 
 }
+
+function autenticarCpf(req, res) {
+    var cpf = req.body.cpfServer;
+
+
+    if (cpf == undefined) {
+        res.status(400).send("Seu cpf está undefined!");
+    } else {
+
+        usuarioModel.autenticarCpf(cpf)
+            .then(
+                function (resultado) {
+                    console.log(`\nResultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+
+                    if (resultado.length == 1) {
+                        console.log(resultado);
+                        res.json(resultado[0]);
+                    } else if (resultado.length == 0) {
+                        res.status(403).send("cpf inválido");
+                    } else {
+                        res.status(403).send("Mais de um usuário com o mesmo cpf!");
+                    }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao autenticar o cpf! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function updateSaldo(req, res) {
+    var valorTrasfer = req.body.valorTrasferServer;
+    var cpf = req.body.cpfServer;
+
+    usuarioModel.updateSaldo(valorTrasfer, cpf)
+        .then((response) => {
+            const tamanho = response.affectedRows;
+
+            if (tamanho > 0) {
+                res.json({
+                    mensagem: "success",
+                });
+            } else {
+                res.json({
+                    mensagem: "error",
+                });
+            }
+        });
+}
+
+
+
+
+
 
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
@@ -145,6 +204,8 @@ function cadastrar(req, res) {
 
 module.exports = {
     entrar,
+    autenticarCpf,
+    updateSaldo,
     cadastrar,
     listar,
     listarConta,

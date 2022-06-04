@@ -10,7 +10,7 @@
     <title>Transferência</title>
 </head>
 
-<body>
+<body onload="minhaConta()">
     <div class="sideBar" onclick="sideBarFunction()" id="sideBar">
         <div>
             <img src="./assets/iconDefault.svg" class="iconDefaultUser" alt="">
@@ -53,10 +53,10 @@
 
         <form action="" class="formTrasfer">
             <h2 class="h2Title">Informe o cpf do beneficiário:</h2>
-            <input type="number" class="inputCpf">
+            <input type="number" class="inputCpf" id="cpfInput">
 
             <h2 class="h2Title">Valor de transfêrencia:</h2>
-            <input type="number" class="inputTrasfer">
+            <input type="number" class="inputTrasfer" id="valorTrasferInput">
 
             <h2 class="h2Title">Data de transferência:</h2>
             <input type="datetime" class="inputDate">
@@ -64,7 +64,7 @@
             <div class="row10">
                 <textarea type="text" class="textAreaTrasfer"></textarea>
                 <div class="column1">
-                    <button type="button" class="buttonEnviar">Enviar</button>
+                    <button type="button" class="buttonEnviar" onclick="trasfer()">Enviar</button>
                     <button type="reset" class="buttonLimpar">Limpar</button>
                 </div>
             </div>
@@ -77,22 +77,166 @@
 
 
 <script>
-
+    var saldoConta = 0
     usuario3.innerHTML = `${sessionStorage.nomeCliente}`;
     email.innerHTML = `${sessionStorage.emailCliente}`;
+    var cpfListar = `${sessionStorage.cpfCliente}`;
 
     function sideBarFunction() {
         side.style.display = `flex`
         sideBar.addEventListener("dblclick", () => {
             side.style.display = `none`
         })
-
-
     }
 
     //      function sideBarFunction2() { outro jeito de fazer double click
     //   side.style.display = `none`
     //      }
+
+    function minhaConta() {
+        const idUsuario = sessionStorage.idCliente;
+
+        fetch(`/usuarios/listarConta/${idUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((resposta) => {
+            // saldoConta
+            resposta.json().then((data) => {
+                console.log(data);
+                saldoConta = `${data[0].saldoConta}`
+                //return data[0].saldoConta
+            })
+
+
+            // if (resposta.ok) {
+            //     window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+            //     window.location = "/dashboard/mural.html";
+            //     limparFormulario();
+            //     finalizarAguardar();
+            // } else if (resposta.status == 404) {
+            //     window.alert("Deu 404!");
+            // } else {
+            //     throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            // }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+    function trasfer() {
+        //aguardar();
+        cpfVar = cpfInput.value
+        valorTrasferVar = valorTrasferInput.value
+
+        if (cpfVar == "") {
+            //cardErro.style.display = "block"
+            //mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            //finalizarAguardar();
+            return false;
+        }
+        else {
+            //setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM cpf: ", cpfVar);
+
+        fetch("/usuarios/autenticarCpf", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                cpfServer: cpfVar,
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO autenticarCpf()!")
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                });
+                updateSaldo()
+
+
+
+            } else {
+
+                console.log("Houve um erro ao tentar autenticar o cpf!");
+
+                resposta.text().then(texto => {
+                    //console.error(texto);
+                    // finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function updateSaldo() {
+
+        // const a = minhaConta()
+        //console.log(a)
+        if (saldoConta >= valorTrasferVar) {
+            console.log("saldo maior que valor da Trasferencia!");
+
+            fetch("/usuarios/updateSaldo", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    valorTrasferServer: valorTrasferVar,
+                    cpfServer: cpfVar,
+                }),
+            }).then((response) => {
+                response.json().then((data) => {
+                    const msg = data.mensagem;
+
+                    console.log(msg);
+                    if (msg == "success") {
+                        console.log("sucesso ao tentar atualizar o saldo!");
+                    } else {
+                        console.log("Houve um erro ao tentar atualizar o saldo!");
+                    }
+                });
+            });
+
+
+        } else {
+            console.log("saldo menor que valor da Trasferencia!");
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -13,6 +13,9 @@ router.get("/listar", function (req, res) {
 router.get("/listarConta", function (req, res) {
     avisoController.listarConta(req, res);
 });
+router.get("/verificarCpf", function (req, res) {
+    avisoController.verificarCpf(req, res);
+});
 
 router.get("/listar/:idUsuario", function (req, res) {
     avisoController.listarPorUsuario(req, res);

@@ -40,6 +40,19 @@ function listarConta() {
     return database.executar(instrucao);
 }
 
+function verificarCpf() {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function verificarCpf()");
+    var instrucao = `
+        select cpfCliente from usuario where cpfCliente = ${cpf};
+        `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+
+
+
+
 function pesquisarDescricao(texto) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pesquisarDescricao()");
     var instrucao = `
@@ -82,6 +95,7 @@ function listarPorUsuario(idUsuario) {
     return database.executar(instrucao);
 }
 
+
 function publicar(titulo, descricao, idUsuario) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", titulo, descricao, idUsuario);
     var instrucao = `
@@ -90,10 +104,10 @@ function publicar(titulo, descricao, idUsuario) {
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
-function publicarConta(saldoConta, emprestimoConta, qntdExtratoConta, cashBackConta, dataExtratoConta, fkCliente) {
+function publicarConta(saldoConta, cashBackConta, dataTrasferencia, descTrasferencia, fkCliente) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", titulo, descricao, idUsuario);
     var instrucao = `
-        INSERT INTO aviso (saldoConta, emprestimoConta, qntdExtratoConta, cashBackConta, dataExtratoConta, fkCliente) VALUES ( '${saldoConta}','${emprestimoConta}', '${qntdExtratoConta}', '${cashBackConta}', '${dataExtratoConta}',  ${fkCliente});
+        INSERT INTO aviso (saldoConta, cashBackConta, dataTrasferencia, descTrasferencia, fkCliente) VALUES ( '${saldoConta}','${cashBackConta}', '${dataTrasferencia}','${descTrasferencia}',${fkCliente});
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -120,6 +134,7 @@ function deletar(idAviso) {
 module.exports = {
     listar,
     listarConta,
+    verificarCpf,
     listarPorUsuario,
     pesquisarDescricao,
     publicar,

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleModal.css">
     <title>Bank Run</title>
 </head>
 
@@ -20,7 +21,8 @@
         <div class="containerHome">
             <h2>Um banco que corre para você, um banco que corre com você,</h2>
             <h1> um Bank Run.</h1>
-            <button class="button1" onclick="openModalReadPlusHome()">  Saber Mais</button>
+
+            <button class="button1" onclick="window.location.href=`signIn.html`">Entrar</button></a>
             <a href="https://www.facebook.com/"><button class="button2">
                     <img src="assets/logoFace.svg" alt="Facebook">
                 </button> </a>
@@ -51,7 +53,7 @@
         </div>
     </div>
 
-  <a name="about"></a>
+    <a name="about"></a>
     <div class="about">
 
         <div class="about1">
@@ -60,7 +62,7 @@
             <h4>Temos como objetivo ser um banco 100% tecnológico, um banco descentralizado, focado apenas na inovação,
                 um banco totalmente novo, sem cartão de crédito ou débito, para evitar problemas de furto, roubo,
                 extravio etc.. </h4>
-            <img class="    " src="assets/backgroundAbout.svg" alt="backgroundAbout">
+            <img class="" src="assets/backgroundAbout.svg" alt="backgroundAbout">
         </div>
 
         <div class="about2">
@@ -127,20 +129,20 @@
 
     </div>
 
-     <main-footer></main-footer>
-      
-     <div id="modalHome" class="modalBody">
+    <main-footer></main-footer>
+
+    <div id="modalContact" class="modalBody">
         <div class="modalReadPlus">
             <div class="containerReadPlus">
                 <div class="modalCheck">
                     <img src="assets/" alt="check">
                 </div>
                 <button onclick="buttonBack()" class="modalBack">&times;</button>
-    
+
             </div>
             <h2>Contato enviado com sucesso!</h2>
             <button class="button8" onclick="buttonBack()">Fechar</button>
-    
+
         </div>
     </div>
 
@@ -151,11 +153,13 @@
 
 <script src="js/components.js"></script>
 <script>
-     function buttonBack() {
-modalHome.style.display = 'none'
-}
+    function buttonBack() {
+        modalHome.style.display = 'none'
+        modalContact.style.display = 'none'
+    }
     function openModalReadPlusHome() {
         modalHome.style.display = 'block'
+        modalContact.style.display = 'block'
 
     }
 </script>

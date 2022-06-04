@@ -22,5 +22,11 @@ router.post("/cadastrar", function (req, res) {
 router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
 });
+router.post("/autenticarCpf", function (req, res) {
+    usuarioController.autenticarCpf(req, res);
+});
+router.post("/updateSaldo", function (req, res) {
+    usuarioController.updateSaldo(req, res);
+});
 
 module.exports = router;

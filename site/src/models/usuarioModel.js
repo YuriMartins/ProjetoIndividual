@@ -24,9 +24,10 @@ function listarConta(idUser) {
 }
 
 function saldoInicial(idUser){
-    const query = `INSERT INTO conta VALUES (null, 0, 0, 0, 0.20, 0, ${idUser})`
+    const query = `INSERT INTO conta VALUES (null, 0, 0.20, '', '', ${idUser})`
     return database.executar(query);
 }
+
 
 function entrar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
@@ -36,6 +37,24 @@ function entrar(email, senha) {
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
+function autenticarCpf(cpf) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", cpf)
+    var instrucao = `
+    select cpfCliente from usuario where cpfCliente = '${cpf}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+function updateSaldo(valorTrasfer, cpf) {
+    const query = `update conta as c
+    inner join usuario as u
+    on c.fkCliente = u.idCliente
+    set saldoConta = saldoConta + '${valorTrasfer}' 
+    where cpfCliente = '${cpf}';
+    `;
+    return database.executar(query);
+  }
+
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
 function cadastrar(nome, telefone, cpf, nasc, email, email2, senha) {
@@ -48,6 +67,8 @@ function cadastrar(nome, telefone, cpf, nasc, email, email2, senha) {
 
 module.exports = {
     entrar,
+    autenticarCpf,
+    updateSaldo,
     cadastrar,
     listar,
     listarConta,
