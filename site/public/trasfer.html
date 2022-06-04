@@ -10,7 +10,7 @@
     <title>Transferência</title>
 </head>
 
-<body onload="minhaConta()">
+<body onload="minhaConta(), validarSessao()">
     <div class="sideBar" onclick="sideBarFunction()" id="sideBar">
         <div>
             <img src="./assets/iconDefault.svg" class="iconDefaultUser" alt="">
@@ -28,7 +28,7 @@
         <div>
             <div class="row">
                 <h4 class="nameSide" id="usuario3"></h4>
-                <img class="imgUserSide" src="assets/iconExitSmall.svg" alt="">
+                <img class="imgUserSide" onclick="limparSessao()" src="assets/iconExitSmall.svg" alt="">
             </div>
             <h5 class="emailSide" id="email"></h5>
         </div>
@@ -42,7 +42,7 @@
             <h6 class="statementH6">Extrato</h6>
         </a>
         <div>
-            <h6 class="exitH6">Sair</h6>
+            <h6 class="exitH6" onclick="limparSessao()">Sair</h6>
             <h6 class="configH6">Configurações</h6>
         </div>
     </div>
@@ -59,10 +59,10 @@
             <input type="number" class="inputTrasfer" id="valorTrasferInput">
 
             <h2 class="h2Title">Data de transferência:</h2>
-            <input type="datetime" class="inputDate">
+            <input type="datetime" class="inputDate" id="dateExtratoInput">
             <h2 class="h2Title">Descrição:</h2>
             <div class="row10">
-                <textarea type="text" class="textAreaTrasfer"></textarea>
+                <textarea type="text" class="textAreaTrasfer" id="descExtratoInput"></textarea>
                 <div class="column1">
                     <button type="button" class="buttonEnviar" onclick="trasfer()">Enviar</button>
                     <button type="reset" class="buttonLimpar">Limpar</button>
@@ -75,12 +75,14 @@
 
 </html>
 
-
+<script src="js/funcoes.js"></script>
 <script>
     var saldoConta = 0
+
     usuario3.innerHTML = `${sessionStorage.nomeCliente}`;
     email.innerHTML = `${sessionStorage.emailCliente}`;
     var cpfListar = `${sessionStorage.cpfCliente}`;
+
 
     function sideBarFunction() {
         side.style.display = `flex`
@@ -96,6 +98,7 @@
     function minhaConta() {
         const idUsuario = sessionStorage.idCliente;
 
+
         fetch(`/usuarios/listarConta/${idUsuario}`, {
             method: "GET",
             headers: {
@@ -105,21 +108,12 @@
             // saldoConta
             resposta.json().then((data) => {
                 console.log(data);
-                saldoConta = `${data[0].saldoConta}`
-                //return data[0].saldoConta
+                saldoConta = data[0].saldoConta
+                fkConta = data[0].fkCliente
+                return saldoConta
+                return fkConta
             })
 
-
-            // if (resposta.ok) {
-            //     window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
-            //     window.location = "/dashboard/mural.html";
-            //     limparFormulario();
-            //     finalizarAguardar();
-            // } else if (resposta.status == 404) {
-            //     window.alert("Deu 404!");
-            // } else {
-            //     throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            // }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
             finalizarAguardar();
@@ -128,28 +122,17 @@
 
     }
 
-
-
-
-
-
-
-
-
-
     function trasfer() {
         //aguardar();
         cpfVar = cpfInput.value
         valorTrasferVar = valorTrasferInput.value
 
         if (cpfVar == "") {
-            //cardErro.style.display = "block"
-            //mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            //finalizarAguardar();
+
             return false;
         }
         else {
-            //setInterval(sumirMensagem, 5000)
+
         }
 
         console.log("FORM cpf: ", cpfVar);
@@ -173,8 +156,6 @@
                 });
                 updateSaldo()
 
-
-
             } else {
 
                 console.log("Houve um erro ao tentar autenticar o cpf!");
@@ -194,11 +175,12 @@
 
     function updateSaldo() {
 
-        // const a = minhaConta()
-        //console.log(a)
+        console.log(saldoConta)
+        console.log(valorTrasferVar)
+
         if (saldoConta >= valorTrasferVar) {
             console.log("saldo maior que valor da Trasferencia!");
-
+            updateSaldoAtual()
             fetch("/usuarios/updateSaldo", {
                 method: "POST",
                 headers: {
@@ -229,14 +211,120 @@
 
 
 
+    function updateSaldoAtual() {
+        extratoEnviado()
+        // const a = minhaConta()
+        //console.log(a)
 
 
+        fetch("/usuarios/updateSaldoAtual", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                valorTrasferServer: valorTrasferVar,
+                cpfListarServer: cpfListar,
+            }),
+        }).then((response) => {
+            response.json().then((data) => {
+                const msg = data.mensagem;
 
+                console.log(msg);
+                if (msg == "success") {
+                    console.log("sucesso ao tentar atualizar o saldoAtual!");
+                } else {
+                    console.log("Houve um erro ao tentar atualizar o saldoAtual!");
+                }
+            });
+        });
+    }
 
+    function extratoEnviado() {
+        dateExtratoVar = dateExtratoInput.value
+        descExtratoVar = descExtratoInput.value
+        // const a = minhaConta()
+        //console.log(a)
+        returnFkCliente()
+        fetch("/usuarios/extratoEnviado", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                dateExtratoServer: dateExtratoVar,
+                descExtratoServer: descExtratoVar,
+                fkContaServer: fkConta
+            }),
+        }).then((response) => {
+            response.json().then((data) => {
+                const msg = data.mensagem;
 
+                console.log(msg);   
+                if (msg == "success") {
+                    console.log("sucesso ao tentar inserir o extrato!");
+                } else {
+                    console.log("Houve um erro ao tentar inserir o extrato!");
+                }
+            });
+        });
+    }
 
+    function returnFkCliente() {
+        extratoRecebido()
+         var cpfVar = cpfInput.value 
+         
+        fetch(`/usuarios/returnFkCliente/${cpfVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((resposta) => {
+            //  saldoConta
+            resposta.json().then((data) => {
+                console.log(data);
+                fkCliente2 = data[0].fkCliente
+                console.log(fkCliente2);
+                return fkCliente2
+            })
 
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+       
 
+    }
+
+    function extratoRecebido() {
+        dateExtratoVar2 = dateExtratoInput.value
+        descExtratoVar2 = descExtratoInput.value
+        
+        // const a = minhaConta()
+        //console.log(a)
+        fetch("/usuarios/extratoRecebido", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                dateExtratoServer: dateExtratoVar2,
+                descExtratoServer: descExtratoVar2,
+                fkClienteServer: fkCliente2
+            }),
+        }).then((response) => {
+            response.json().then((data) => {
+                const msg = data.mensagem;
+
+                console.log(msg);   
+                if (msg == "success") {
+                    console.log("sucesso ao tentar receber o extrato!");
+                } else {
+                    console.log("Houve um erro ao tentar receber o extrato!");
+                }
+            });
+        });
+    }
 
 
 

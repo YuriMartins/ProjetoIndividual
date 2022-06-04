@@ -130,9 +130,87 @@ function updateSaldo(req, res) {
         });
 }
 
+function updateSaldoAtual(req, res) {
+    var valorTrasfer = req.body.valorTrasferServer;
+    var cpfListar = req.body.cpfListarServer;
 
+    usuarioModel.updateSaldoAtual(valorTrasfer, cpfListar)
+        .then((response) => {
+            const tamanho = response.affectedRows;
 
+            if (tamanho > 0) {
+                res.json({
+                    mensagem: "success",
+                });
+            } else {
+                res.json({
+                    mensagem: "error",
+                });
+            }
+        });
+}
 
+function extratoEnviado(req, res) {
+    var dateExtrato = req.body.dateExtratoServer; 
+    var descExtrato = req.body.descExtratoServer; 
+    var fkConta = req.body.fkContaServer;
+
+    usuarioModel.extratoEnviado(dateExtrato, descExtrato, fkConta)
+        .then((response) => {
+            const tamanho = response.affectedRows;
+
+            if (tamanho > 0) {
+                res.json({
+                    mensagem: "success",
+                });
+            } else {
+                res.json({
+                    mensagem: "error",
+                });
+            }
+        });
+}
+
+function returnFkCliente(req, res) {
+
+    const cpf = req.params.cpfCliente;
+
+    usuarioModel.listarConta(cpf)
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function extratoRecebido(req, res) {
+    var dateExtrato = req.body.dateExtratoServer; 
+    var descExtrato = req.body.descExtratoServer; 
+    var fkCliente = req.body.fkClienteServer;
+
+    usuarioModel.extratoEnviado(dateExtrato, descExtrato, fkCliente)
+        .then((response) => {
+            const tamanho = response.affectedRows;
+
+            if (tamanho > 0) {
+                res.json({
+                    mensagem: "success",
+                });
+            } else {
+                res.json({
+                    mensagem: "error",
+                });
+            }
+        });
+}
 
 
 function cadastrar(req, res) {
@@ -177,16 +255,7 @@ function cadastrar(req, res) {
                             console.log(resEffect);
                             res.json(resEffect)
                         })
-
-
-
-                        // res.json(response)
-
-
                     })
-
-
-
                 }
             }
             ).catch(
@@ -206,6 +275,10 @@ module.exports = {
     entrar,
     autenticarCpf,
     updateSaldo,
+    updateSaldoAtual,
+    extratoEnviado,
+    returnFkCliente,
+    extratoRecebido,
     cadastrar,
     listar,
     listarConta,

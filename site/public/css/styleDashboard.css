@@ -749,7 +749,9 @@ body {
     color: #FFFFFF;
 }
 
-.side .imgUserSide {}
+.side .imgUserSide {
+    cursor: pointer;
+}
 
 .side .exitH6 {
     margin-bottom: 25%;

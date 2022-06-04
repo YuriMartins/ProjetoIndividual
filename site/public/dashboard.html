@@ -9,7 +9,7 @@
     <title>Carteira</title>
 </head>
 
-<body onload="minhaConta()">
+<body onload="minhaConta(), validarSessao()">
     <div class="sideBar" onclick="sideBarFunction()" id="sideBar">
         <div>
             <img src="./assets/iconDefault.svg" class="iconDefaultUser" alt="">
@@ -18,7 +18,7 @@
         <img class="iconTrasfer" src="./assets/iconTrasfer.svg" alt="">
         <img class="iconStatement" src="./assets/iconStatement.svg" alt="">
         <div>
-            <img class="exitIcon" src="./assets/iconExit.svg" alt="">
+            <img  class="exitIcon" src="./assets/iconExit.svg" alt="">
             <img class="imgLine" src="./\assets/iconLine.svg" alt="">
             <img class="imgConfig" src="./assets/iconConfig.svg" alt="">
         </div>
@@ -27,7 +27,7 @@
         <div>
             <div class="row">
                 <h4 class="nameSide" id="usuario3"></h4>
-                <img class="imgUserSide" src="assets/iconExitSmall.svg" alt="">
+                <img class="imgUserSide" onclick="limparSessao()" src="assets/iconExitSmall.svg" alt="">
             </div>
             <h5 class="emailSide" id="email"></h5>
         </div>
@@ -35,7 +35,7 @@
         <a href="trasfer.html"><h6 class="trasferH6">Transferência </h6></a>
         <a href="statement.html"><h6 class="statementH6">Extrato</h6></a>
         <div>
-            <h6 class="exitH6">Sair</h6>
+            <h6 class="exitH6" onclick="limparSessao()">Sair</h6>
             <h6 class="configH6">Configurações</h6>
         </div>
     </div>
@@ -84,6 +84,8 @@
 </body>
 
 </html>
+
+<script src="js/funcoes.js"></script>
 
 <script>
 

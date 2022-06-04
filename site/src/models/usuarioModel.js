@@ -24,7 +24,7 @@ function listarConta(idUser) {
 }
 
 function saldoInicial(idUser){
-    const query = `INSERT INTO conta VALUES (null, 0, 0.20, '', '', ${idUser})`
+    const query = `INSERT INTO conta VALUES (null, 0, 0.20, ${idUser})`
     return database.executar(query);
 }
 
@@ -55,6 +55,40 @@ function updateSaldo(valorTrasfer, cpf) {
     return database.executar(query);
   }
 
+  
+  function updateSaldoAtual(valorTrasfer, cpfListar) {
+      const query = `update conta as c
+      inner join usuario as u
+      on c.fkCliente = u.idCliente
+      set saldoConta = saldoConta - '${valorTrasfer}' 
+      where cpfCliente = '${cpfListar}';
+      `;
+      return database.executar(query);
+    }
+    
+    function extratoEnviado(dateExtrato, descExtrato, fkConta) {
+      const query = `insert into extrato values 
+      (null,'${dateExtrato}','${descExtrato}','1',${fkConta});
+      `;
+      return database.executar(query);
+    }
+    
+function returnFkCliente(cpf) {
+    var instrucao = `
+    select fkCliente from conta as c
+    inner join usuario as u
+    on c.fkCliente = u.idCliente
+    where cpfCliente = '${cpf}';
+    `;
+    return database.executar(instrucao);
+}
+
+function extratoRecebido(dateExtrato, descExtrato, fkCliente) {
+    const query = `insert into extrato values 
+    (null,'${dateExtrato}','${descExtrato}','2',${fkCliente});
+    `;
+    return database.executar(query);
+  }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
 function cadastrar(nome, telefone, cpf, nasc, email, email2, senha) {
@@ -69,6 +103,10 @@ module.exports = {
     entrar,
     autenticarCpf,
     updateSaldo,
+    updateSaldoAtual,
+    extratoEnviado,
+    returnFkCliente,
+    extratoRecebido,
     cadastrar,
     listar,
     listarConta,

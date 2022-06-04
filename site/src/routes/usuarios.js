@@ -13,6 +13,9 @@ router.get("/listar", function (req, res) {
 router.get("/listarConta/:id", function (req, res) {
     usuarioController.listarConta(req, res);
 });
+router.get("/returnFkCliente/:cpfCliente", function (req, res) {
+    usuarioController.returnFkCliente(req, res);
+});
 
 //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 router.post("/cadastrar", function (req, res) {
@@ -28,5 +31,15 @@ router.post("/autenticarCpf", function (req, res) {
 router.post("/updateSaldo", function (req, res) {
     usuarioController.updateSaldo(req, res);
 });
+router.post("/updateSaldoAtual", function (req, res) {
+    usuarioController.updateSaldoAtual(req, res);
+});
+router.post("/extratoEnviado", function (req, res) {
+    usuarioController.extratoEnviado(req, res);
+});
+router.post("/extratoRecebido", function (req, res) {
+    usuarioController.extratoRecebido(req, res); 
+});
+
 
 module.exports = router;
