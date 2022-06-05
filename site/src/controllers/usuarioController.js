@@ -194,9 +194,9 @@ function returnFkCliente(req, res) {
 function extratoRecebido(req, res) {
     var dateExtrato = req.body.dateExtratoServer; 
     var descExtrato = req.body.descExtratoServer; 
-    var fkCliente = req.body.fkClienteServer;
+    var fkCliente2 = req.body.fkClienteServer2;
 
-    usuarioModel.extratoEnviado(dateExtrato, descExtrato, fkCliente)
+    usuarioModel.extratoRecebido(dateExtrato, descExtrato, fkCliente2)
         .then((response) => {
             const tamanho = response.affectedRows;
 

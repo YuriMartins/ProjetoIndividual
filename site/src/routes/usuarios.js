@@ -37,7 +37,7 @@ router.post("/updateSaldoAtual", function (req, res) {
 router.post("/extratoEnviado", function (req, res) {
     usuarioController.extratoEnviado(req, res);
 });
-router.post("/extratoRecebido", function (req, res) {
+ router.post("/extratoRecebido", function (req, res) {
     usuarioController.extratoRecebido(req, res); 
 });
 

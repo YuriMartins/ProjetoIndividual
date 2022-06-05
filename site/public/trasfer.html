@@ -246,6 +246,9 @@
         // const a = minhaConta()
         //console.log(a)
         returnFkCliente()
+        setTimeout(() => {
+            extratoRecebido()
+        }, "1000")
         fetch("/usuarios/extratoEnviado", {
             method: "POST",
             headers: {
@@ -260,7 +263,7 @@
             response.json().then((data) => {
                 const msg = data.mensagem;
 
-                console.log(msg);   
+                console.log(msg);
                 if (msg == "success") {
                     console.log("sucesso ao tentar inserir o extrato!");
                 } else {
@@ -271,9 +274,10 @@
     }
 
     function returnFkCliente() {
-        extratoRecebido()
-         var cpfVar = cpfInput.value 
-         
+
+
+        var cpfVar = cpfInput.value
+
         fetch(`/usuarios/returnFkCliente/${cpfVar}`, {
             method: "GET",
             headers: {
@@ -286,20 +290,21 @@
                 fkCliente2 = data[0].fkCliente
                 console.log(fkCliente2);
                 return fkCliente2
+
             })
 
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
             finalizarAguardar();
         });
-       
+
 
     }
 
     function extratoRecebido() {
         dateExtratoVar2 = dateExtratoInput.value
         descExtratoVar2 = descExtratoInput.value
-        
+
         // const a = minhaConta()
         //console.log(a)
         fetch("/usuarios/extratoRecebido", {
@@ -310,13 +315,13 @@
             body: JSON.stringify({
                 dateExtratoServer: dateExtratoVar2,
                 descExtratoServer: descExtratoVar2,
-                fkClienteServer: fkCliente2
+                fkClienteServer2: fkCliente2
             }),
         }).then((response) => {
             response.json().then((data) => {
                 const msg = data.mensagem;
 
-                console.log(msg);   
+                console.log(msg);
                 if (msg == "success") {
                     console.log("sucesso ao tentar receber o extrato!");
                 } else {

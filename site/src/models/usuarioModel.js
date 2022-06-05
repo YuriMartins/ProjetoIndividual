@@ -83,9 +83,9 @@ function returnFkCliente(cpf) {
     return database.executar(instrucao);
 }
 
-function extratoRecebido(dateExtrato, descExtrato, fkCliente) {
-    const query = `insert into extrato values 
-    (null,'${dateExtrato}','${descExtrato}','2',${fkCliente});
+function extratoRecebido(dateExtrato, descExtrato, fkCliente2) {
+    const query = `insert into extrato values
+    (null,'${dateExtrato}','${descExtrato}','2',${fkCliente2});
     `;
     return database.executar(query);
   }
