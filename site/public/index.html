@@ -57,7 +57,7 @@
     <div class="about">
 
         <div class="about1">
-            <h5><span class="space">Um</span> banco 100% Digital para suprir todas as suas necessidades, sem cartão sem
+            <h5><span class="space"></span>Um banco 100% Digital para suprir todas as suas necessidades, sem cartão sem
                 taxa, Banco Run</h5>
             <h4>Temos como objetivo ser um banco 100% tecnológico, um banco descentralizado, focado apenas na inovação,
                 um banco totalmente novo, sem cartão de crédito ou débito, para evitar problemas de furto, roubo,
@@ -104,7 +104,7 @@
                 </div>
             </div>
 
-            <h5><span class="space">Economizar</span> dinheiro para organizar e determinar algo como prioridade no
+            <h5><span class="space"></span>Economizar dinheiro para organizar e determinar algo como prioridade no
                 futuro</h5>
             <h4 class="h4About2">Economizar pode fazer você gerenciar suas finanças, se você começar a economizar
                 agora e ter sucesso em alcançar o que você quer.</h4>
@@ -117,12 +117,12 @@
     <div class="contact">
         <h1>Entre em contato conosco!</h1>
 
-        <form action="mailto:bankRun@gmail.com" class="forms" method="post" enctype="text/plain">
-            <input type="text" name="Nome:" class="inputContact" placeholder="Qual a seu nome?" type="text">
-            <input type="email" name="E-mail:" class="inputContact" placeholder="Qual a seu e-mail?" type="text">
-            <textarea name="Assunto:" placeholder="Qual a sua dúvida?" type="text"></textarea>
+        <form class="forms" id="form">
+            <input type="text" id="contactName" name="Nome:" class="inputContact" placeholder="Qual a seu nome?" type="text">
+            <input type="email" id="contactEmail" name="E-mail:" class="inputContact" placeholder="Qual a seu e-mail?" type="text">
+            <textarea  id="contactAssunto"  name="Assunto:" placeholder="Qual a sua dúvida?" type="text"></textarea>
 
-            <button type="submit" onclick="openModalContact()" class="button1">Enviar</button>
+            <button id="buttonContact" type="button" onclick="openModalContact()" class="button1">Enviar</button>
             <button type="reset" class="button3">Limpar</button>
         </form>
         <img class="imgWaves" src="assets/wave.svg" alt="waves">
@@ -134,12 +134,12 @@
         <div class="modalReadPlus">
             <div class="containerReadPlus">
                 <div class="modalCheck">
-                    <img src="assets/iconCheck.svg" alt="check">
+                    <img id="modalContactImg" src="assets/iconCheck.svg" alt="check">
                 </div>
                 <button onclick="buttonBack()" class="modalBack">&times;</button>
 
             </div>
-            <span>Contato enviado com sucesso!</span>
+            <span id="modalContactText">Contato enviado com sucesso!</span>
             <button class="button8" onclick="buttonBack()">Fechar</button>
 
         </div>
@@ -152,11 +152,27 @@
 
 <script src="js/components.js"></script>
 <script>
+
+
     function buttonBack() {
         modalContact.style.display = 'none'
     }
     function openModalContact() {
-        modalContact.style.display = 'block'
+        
+        if(contactName.value == '' || contactEmail.value == '' || contactAssunto.value == '') {
+            modalContact.style.display = 'block'
+            modalContactImg.src = "assets/iconDanger.svg"
+            modalContactText.innerHTML = "Algum campo está vazio!";
+        }
+        else {
+            modalContact.style.display = 'block'
+            modalContactImg.src = "assets/iconCheck.svg"
+            modalContactText.innerHTML = "Contato enviado com sucesso!";
+            form.action = "mailto:bankRun@gmail.com"
+            form.method = "post"
+            form.enctype = "text/plain"
+            buttonContact.type = "submit"
+        }
 
     }
 </script>

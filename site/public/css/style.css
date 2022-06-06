@@ -283,8 +283,8 @@ nav ul {
     width: 100%;
     height: flex;
     background: url('../assets/gifHome.gif') no-repeat;
-    background-position-y: 15vw;
-    background-position-x: 47vw;
+    background-position-y: 12vw;
+    background-position-x: 42vw;
 }
 
 .containerHome {
@@ -318,13 +318,13 @@ nav ul {
 
 .containerHome .button1:nth-child(odd) {
     text-align: right;
-    padding-right: 3%;
+    padding-right: 9%;
     transform: perspective(500px) rotateY(-20deg);
     transform: matrix(1, -0.04, 0.06, 1, 0, 0);
 }
 
 .containerHome .button1:nth-child(odd):hover {
-    padding-right: 5%;
+    padding-right: 9%;
     transform: perspective(200px) rotateY(-30deg);
 }
 

@@ -1,3 +1,4 @@
+
 .metrics {
     width: 70vw;
     height: 32vh;
@@ -92,13 +93,16 @@
     line-height: 20px;
     color: rgba(0, 0, 0, 0.3);
 }
+
 .daddy {
     height: 70vh;
     overflow-y: scroll;
 }
+
 .daddy::-webkit-scrollbar {
     width: 12px;
 }
+
 .daddy::-webkit-scrollbar-thumb {
     background: linear-gradient(91.16deg, #1F8EBE 39.35%, #440495 46.4%, #440495 54.76%, #B102CD 62.28%);
     border-radius: 120px;

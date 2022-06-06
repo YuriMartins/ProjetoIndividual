@@ -24,6 +24,7 @@
         </div>
     </div>
     <div class="side" id="side">
+
         <div>
             <div class="row">
                 <h4 class="nameSide" id="usuario3"></h4>
@@ -89,8 +90,6 @@
 
 <script>
 
-
-
     usuario.innerHTML = `, ${sessionStorage.nomeCliente}`;
     usuario2.innerHTML = `${sessionStorage.nomeCliente}`;
     usuario3.innerHTML = `${sessionStorage.nomeCliente}`;
@@ -101,6 +100,7 @@
 
     function sideBarFunction() {
         side.style.display = `flex`
+        
         sideBar.addEventListener("dblclick", () => {
             side.style.display = `none`
         })
