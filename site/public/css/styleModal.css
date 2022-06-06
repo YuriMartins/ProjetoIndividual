@@ -60,7 +60,12 @@
     cursor: pointer;
 }
 
-h2 {
+span {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
     font-size: 18px;
     color: #54595E;
 }
@@ -69,8 +74,8 @@ h2 {
     width: 20vw;
     height: 8vh;
     margin-bottom: 3%;
-    background: #0099FF;
-    border-radius: 40px;
+    background: linear-gradient(101.05deg, #1F8EBE -5.36%, #440495 29.46%, #440495 56.03%, #B102CD 81.92%);
+    border-radius: 16px;
     border-color: transparent;
     font-family: 'Poppins', sans-serif;
     font-style: normal;
@@ -80,5 +85,6 @@ h2 {
     align-items: center;
     text-align: center;
     color: #FFFFFF;
+    border: transparent;
     cursor: pointer;
 }

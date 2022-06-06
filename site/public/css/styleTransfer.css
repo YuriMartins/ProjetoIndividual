@@ -47,9 +47,6 @@
     height: 10vh;
     text-align: center;
     font-size: 32px;
-    background: url('../assets/iconDate.svg') no-repeat;
-    background-position-y: center;
-    background-position-x: right;
 }
 
 .textAreaTrasfer {

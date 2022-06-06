@@ -89,11 +89,15 @@
 
 <script>
 
+
+
     usuario.innerHTML = `, ${sessionStorage.nomeCliente}`;
     usuario2.innerHTML = `${sessionStorage.nomeCliente}`;
     usuario3.innerHTML = `${sessionStorage.nomeCliente}`;
     cpf.innerHTML = `${sessionStorage.cpfCliente}`;
     email.innerHTML = `${sessionStorage.emailCliente}`;
+
+
 
     function sideBarFunction() {
         side.style.display = `flex`
@@ -129,10 +133,10 @@
             // saldoConta
             resposta.json().then((data) => {
                 console.log(data);
-                var saldoConta = `${data[0].saldoConta}`
+                var saldoConta2 = `${data[0].saldoConta}`
                 var cashBack2 = `${data[0].cashBackConta}`
-                var cashBack3 = saldoConta * cashBack2   
-                hidden2.innerHTML =  `R$ ${saldoConta.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
+                var cashBack3 = saldoConta2 * cashBack2   
+                hidden2.innerHTML =  `${Number(saldoConta2).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
                 cashBack.innerHTML = `${cashBack3.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
             })                   
 

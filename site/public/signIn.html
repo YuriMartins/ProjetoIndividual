@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/styleLogin.css">
+    <link rel="stylesheet" href="css/styleModal.css">
     <title>Login</title>
 </head>
 
@@ -40,7 +41,18 @@
 
     <img class="wavesLogin" src="assets/wave.svg" alt="wavesLogin" />
 
-
+    <div id="modal" class="modalBody">
+        <div class="modalReadPlus">
+            <div class="containerReadPlus">
+                <div class="modalCheck">
+                    <img id="modalImg" src="assets/iconCheck.svg" alt="check">
+                </div>
+                <button onclick="buttonBack()" class="modalBack">&times;</button>
+            </div>
+            <span id="modalText"></span>
+            <button class="button8" onclick="buttonBack()">Fechar</button>
+        </div>
+    </div>
 
 
 </body>
@@ -48,6 +60,15 @@
 </html>
 <script>
     var loggIn = Number(sessionStorage.getItem("idCliente"));
+
+
+
+
+
+
+    function buttonBack() {
+        modal.style.display = 'none'
+    }
 
     loggIn > 0 ? inLoggin() : null;
     function entrar() {
@@ -57,13 +78,13 @@
         var senhaVar = inputPassword.value;
 
         if (emailVar == "" || senhaVar == "") {
-            //cardErro.style.display = "block"
-            //mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            //finalizarAguardar();
+            modal.style.display = 'block'
+            modalImg.src = "assets/iconDanger.svg"
+            modalText.innerHTML = "Preencha todos os campos!";
             return false;
         }
         else {
-            setInterval(sumirMensagem, 5000)
+            //setInterval(sumirMensagem, 5000)
         }
 
         console.log("FORM LOGIN: ", emailVar);
@@ -83,6 +104,9 @@
 
             if (resposta.ok) {
                 console.log(resposta);
+                modal.style.display = 'block'
+                modalImg.src = "assets/iconCheck.svg"
+                modalText.innerHTML = "Login feito com sucesso!";
 
                 resposta.json().then(json => {
                     console.log(json);
@@ -90,17 +114,19 @@
 
                     sessionStorage.emailCliente = json.emailCliente;
                     sessionStorage.nomeCliente = json.nomeCliente;
-                    sessionStorage.idCliente  = json.idCliente;
-                    sessionStorage.cpfCliente  = json.cpfCliente;
+                    sessionStorage.idCliente = json.idCliente;
+                    sessionStorage.cpfCliente = json.cpfCliente;
 
                     setTimeout(function () {
-                         window.location = "dashboard.html";
+                        window.location = "dashboard.html";
                     }, 1000); // apenas para exibir o loading
 
                 });
 
             } else {
-
+                modal.style.display = 'block'
+                modalImg.src = "assets/iconDanger.svg"
+                modalText.innerHTML = "Houve um erro ao tentar realizar o login!";
                 console.log("Houve um erro ao tentar realizar o login!");
 
                 resposta.text().then(texto => {
@@ -116,9 +142,6 @@
         return false;
     }
 
-    function sumirMensagem() {
-        //cardErro.style.display = "none"
-    }
 
 </script>
 <script src="js/components.js"></script>

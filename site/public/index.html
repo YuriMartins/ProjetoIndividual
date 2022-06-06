@@ -122,11 +122,10 @@
             <input type="email" name="E-mail:" class="inputContact" placeholder="Qual a seu e-mail?" type="text">
             <textarea name="Assunto:" placeholder="Qual a sua dúvida?" type="text"></textarea>
 
-            <button type="submit" onclick="openModalReadPlusContact()" class="button1">Enviar</button>
+            <button type="submit" onclick="openModalContact()" class="button1">Enviar</button>
             <button type="reset" class="button3">Limpar</button>
         </form>
         <img class="imgWaves" src="assets/wave.svg" alt="waves">
-
     </div>
 
     <main-footer></main-footer>
@@ -135,12 +134,12 @@
         <div class="modalReadPlus">
             <div class="containerReadPlus">
                 <div class="modalCheck">
-                    <img src="assets/" alt="check">
+                    <img src="assets/iconCheck.svg" alt="check">
                 </div>
                 <button onclick="buttonBack()" class="modalBack">&times;</button>
 
             </div>
-            <h2>Contato enviado com sucesso!</h2>
+            <span>Contato enviado com sucesso!</span>
             <button class="button8" onclick="buttonBack()">Fechar</button>
 
         </div>
@@ -154,11 +153,9 @@
 <script src="js/components.js"></script>
 <script>
     function buttonBack() {
-        modalHome.style.display = 'none'
         modalContact.style.display = 'none'
     }
-    function openModalReadPlusHome() {
-        modalHome.style.display = 'block'
+    function openModalContact() {
         modalContact.style.display = 'block'
 
     }

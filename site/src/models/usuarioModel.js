@@ -82,6 +82,33 @@ function returnFkCliente(cpf) {
     `;
     return database.executar(instrucao);
 }
+function metrics1(fkConta) {
+    var instrucao = `
+    select count(idExtrato) as 'enviadas' from extrato
+    where fkConta = ${fkConta} and statusExtrato = '1';
+    `;
+    return database.executar(instrucao);
+}
+
+function metrics2(fkConta) {
+    var instrucao = `
+    select count(idExtrato) as 'recebidas' from extrato
+    where fkConta = ${fkConta} and statusExtrato = '2';
+    `;
+    return database.executar(instrucao);
+}
+
+function listarStatement(fkConta) {
+    var instrucao = `
+    select nomeCliente, dataExtrato, statusExtrato, descExtrato from extrato as e
+    join conta as c
+    on e.fkConta = c.idConta
+    join usuario as u
+    on c.fkCliente = u.idCliente
+    where fkCliente = ${fkConta};
+    `;
+    return database.executar(instrucao);
+}
 
 function extratoRecebido(dateExtrato, descExtrato, fkCliente2) {
     const query = `insert into extrato values
@@ -106,6 +133,9 @@ module.exports = {
     updateSaldoAtual,
     extratoEnviado,
     returnFkCliente,
+    metrics1,
+    metrics2,
+    listarStatement,
     extratoRecebido,
     cadastrar,
     listar,

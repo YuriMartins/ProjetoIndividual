@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styleDashboard.css">
+    <link rel="stylesheet" href="./css/styleStatement.css">
+    <title>Extrato</title>
+</head>
+
+<body onload="minhaConta(), validarSessao()">
+    <div class="sideBar" onclick="sideBarFunction()" id="sideBar">
+        <div>
+            <img src="./assets/iconDefault.svg" class="iconDefaultUser" alt="">
+        </div>
+        <img class="iconWallet" src="./assets/iconWallet.svg" alt="">
+        <img class="iconTrasfer" src="./assets/iconTrasfer.svg" alt="">
+        <img class="iconStatement" src="./assets/iconStatement.svg" alt="">
+        <div>
+            <img class="exitIcon" src="./assets/iconExit.svg" alt="">
+            <img class="imgLine" src="./assets/iconLine.svg" alt="">
+            <img class="imgConfig" src="./assets/iconConfig.svg" alt="">
+        </div>
+    </div>
+    <div class="side" id="side">
+        <div>
+            <div class="row">
+                <h4 class="nameSide" id="usuario3"></h4>
+                <img class="imgUserSide" onclick="limparSessao()" src="assets/iconExitSmall.svg" alt="">
+            </div>
+            <h5 class="emailSide" id="email"></h5>
+        </div>
+        <a href="dashboard.html">
+            <h6 class="walletH6">Minha carteira</h6>
+        </a>
+        <a href="trasfer.html">
+            <h6 class="trasferH6">Transferência</h6>
+        </a>
+        <a href="statement.html">
+            <h6 class="statementH6">Extrato</h6>
+        </a>
+        <div>
+            <h6 class="exitH6" onclick="limparSessao()">Sair</h6>
+            <h6 class="configH6">Configurações</h6>
+        </div>
+    </div>
+    <div class="dashboard">
+        <div class="row7">
+            <h2 class="h2Title">Extrato</h2>
+        </div>
+        <div class="metrics">
+            <div class="metrics1">
+                <div class="imgMetrics">
+                    <img src="assets/iconSubmit.svg" width="120px" alt="">
+                </div>
+                <div class="alignMetrics">
+                    <span class="h2White">Quantidade de
+                        transação enviadas</span>
+                    <span class="h2style" id="spanMetrics1">0</span>
+                </div>
+            </div>
+
+            <div class="metrics1">
+                <div class="imgMetrics">
+                    <img src="assets/iconReceved.svg" width="120px" alt="">
+                </div>
+                <div class="alignMetrics">
+                    <span class="h2White">Quantidade de
+                        transação recebidas</span>
+                    <span class="h2style" id="spanMetrics2">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="divDaddy" class="daddy" >
+            <div class="statement" style="display:none;">
+                <img src="assets/iconTrasferStatement.svg" height="74px" alt="">
+                <div class="columnStatement">
+                    <span class="spanName" id="nameSpan"></span>
+                    <span class="spanDate" id="dateSpan"></span>
+                </div>
+                <div class="statementBar">
+                    <img src="assets/EllipseStatement.svg" alt="">
+                    <span class="spanStatus" id="statusSpan"></span>
+                </div>
+                <span class="spanDesc" id="descSpan"></span>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</body>
+
+</html>
+
+<script src="js/funcoes.js"></script>
+<script>
+    usuario3.innerHTML = `${sessionStorage.nomeCliente}`;
+    email.innerHTML = `${sessionStorage.emailCliente}`;
+    var cpfListar = `${sessionStorage.cpfCliente}`;
+
+
+    function sideBarFunction() {
+        side.style.display = `flex`
+        sideBar.addEventListener("dblclick", () => {
+            side.style.display = `none`
+        })
+    }
+
+    function minhaConta() {
+        const idUsuario = sessionStorage.idCliente;
+
+        // setInterval(() => {
+        setTimeout(() => {
+            metrics1()
+        }, "1000")
+        // }, "1000")
+
+
+
+        //  setInterval(() => {
+        setTimeout(() => {
+            metrics2()
+        }, "1000")
+        //  }, "1000")
+
+        //setInterval(() => {
+        setTimeout(() => {
+            listarStatement()
+        }, "1000")
+        // }, "1000")
+
+        fetch(`/usuarios/listarConta/${idUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((resposta) => {
+            // saldoConta
+            resposta.json().then((data) => {
+                console.log(data);
+                saldoConta = data[0].saldoConta
+                fkConta = data[0].fkCliente
+                return saldoConta
+                return fkConta
+            })
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+
+    }
+
+    function listarStatement() {
+
+        const fkContaVar = fkConta;
+
+
+        fetch(`/usuarios/listarStatement/${fkContaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((resposta) => {
+            // saldoConta
+            listaNome = []
+            listaDate = []
+            listaDesc = []
+            listaStatus = []
+            resposta.json().then((data) => {
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    var nome = data[i].nomeCliente;
+                    var date = data[i].dataExtrato;
+                    var descricao = data[i].descExtrato;
+                    var status = data[i].statusExtrato;
+                    listaNome.push(nome)
+                    listaDate.push(date)
+                    listaDesc.push(descricao)
+                    listaStatus.push(status)
+                    
+                    if (Number(listaStatus[i]) == 1) {
+                        var status = `Enviado`
+                    }
+                    else {
+                        var status = `Recebido`
+                    }
+                    divDaddy.innerHTML += `
+                    <div class="statement">
+                <img src="assets/iconTrasferStatement.svg" height="74px" alt="">
+                <div class="columnStatement">
+                    <span class="spanName" id="nameSpan">
+                        ${listaNome[i]}
+                        </span>
+                    <span class="spanDate" id="dateSpan">
+                        ${listaDate[i]}</span>
+                </div>
+                <div class="statementBar">
+                    <img src="assets/EllipseStatement.svg" alt="">
+                    <span class="spanStatus" id="statusSpan">
+                        ${status}</span>
+                </div>
+                <span class="spanDesc" id="descSpan">
+                    ${listaDesc[i]}</span>
+            </div>`
+            
+                    nameSpan.innerHTML += `${listaNome[i]}`
+                    dateSpan.innerHTML += `${listaDate[i]}`
+                    descSpan.innerHTML += `${listaDesc[i]}`
+                   
+                }
+
+                //spanMetrics1.innerHTML = `${enviado}`;
+            })
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+    }
+
+
+    function metrics1() {
+        const fkContaVar = fkConta;
+
+
+        fetch(`/usuarios/metrics1/${fkContaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((resposta) => {
+            // saldoConta
+            resposta.json().then((data) => {
+                console.log(data);
+                var enviado = data[0].enviadas;
+                console.log(enviado);
+                spanMetrics1.innerHTML = `${enviado}`;
+            })
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+    }
+
+    function metrics2() {
+        const fkContaVar = fkConta;
+
+
+        fetch(`/usuarios/metrics2/${fkContaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((resposta) => {
+            // saldoConta
+            resposta.json().then((data) => {
+                console.log(data);
+                var recebido = data[0].recebidas;
+                console.log(recebido);
+                spanMetrics2.innerHTML = `${recebido}`;
+            })
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+
+    }
+
+
+
+</script>

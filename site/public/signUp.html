@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/styleSignUp.css">
-    <title>Login</title>
+    <link rel="stylesheet" href="css/styleModal.css">
+    <title>Cadastro</title>
 </head>
 
 <body>
@@ -22,11 +23,12 @@
                 <h4 class="h4Forms">Nome Completo:</h4>
                 <input class="inputLogin" type="email" id="nomeInput" />
                 <h4 class="h4Forms">Telefone:</h4>
-                <input class="inputPassword" type="number" id="telefoneInput" />
+                <input class="inputPassword" type="text" id="telefoneInput" maxlength="14" />
                 <h4 class="h4Forms">CPF:</h4>
-                <input class="inputPassword" type="number" id="cpfInput" />
+                <input class="inputPassword" type="text" id="cpfInput"/>
                 <h4 class="h4Forms">Data de Nascimento:</h4>
-                <input class="inputPassword" type="date" id="nascInput" />
+                <input class="inputPassword" type="date" value="2004-06-05" max="2004-06-05" min="1900-06-05"
+                    id="nascInput" />
             </form>
 
             <form class="formSignUp" action="">
@@ -43,8 +45,8 @@
 
         </div>
         <div class="row4">
-        <button class="button2" onclick="cadastrar()">Cadastrar</button>
-    </div>
+            <button class="button2" onclick="cadastrar()">Cadastrar</button>
+        </div>
         <div class="row4">
 
             <h4>Já possui conta?<a href="signIn.html"> <span class="spanCadastre">Entrar</span></h4></a>
@@ -55,16 +57,45 @@
     <img class="wavesLogin" src="assets/wave.svg" alt="wavesLogin" />
 
 
+    <div id="modal" class="modalBody">
+        <div class="modalReadPlus">
+            <div class="containerReadPlus">
+                <div class="modalCheck">
+                    <img id="modalImg" src="assets/iconCheck.svg" alt="check">
+                </div>
+                <button onclick="buttonBack()" class="modalBack">&times;</button>
 
+            </div>
+            <span id="modalText"></span>
+            <button class="button8" onclick="buttonBack()">Fechar</button>
+
+        </div>
+    </div>
 
 </body>
 
 </html>
 
 <script>
-    function cadastrar() {
-        //aguardar();
+    
 
+    let telefoneInput = document.querySelector("#telefoneInput");
+    telefoneInput.addEventListener("keypress", (e) => mascaraTelefone(e.target.value)); // Dispara quando digitado no campo
+    telefoneInput.addEventListener("change", (e) => mascaraTelefone(e.target.value)); // Dispara quando autocompletado o campo
+
+    const mascaraTelefone = (telefone) => {
+        telefone = telefone.replace(
+            /^([0-9]\d{1})(\d{5})(\d{4})/,
+            "($1)$2-$3"
+        );
+        telefoneInput.value = telefone; // Insere o(s) valor(es) no campo
+    };
+
+    function buttonBack() {
+        modal.style.display = 'none'
+    }
+
+    function cadastrar() {
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
         var nomeVar = nomeInput.value;
@@ -76,13 +107,47 @@
         var senhaVar = senhaInput.value;
         var senhaVar2 = senhaInput2.value;
 
-        if (nomeVar == "" || telefoneVar == "" || cpfVar == "" || nascVar == "" || emailVar == "" || emailVar2 == "" || senhaVar == "" || senhaVar2 == "") {
-            //cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
 
-            finalizarAguardar();
+        const regex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!#%*?&])[A-Za-z\d@$!#%*?&]{8,20}$/;
+        const passwordTest = regex.test(senhaVar);
+        const passwordTest2 = regex.test(senhaVar2);
+
+        if (nomeVar == "" || telefoneVar == "" || cpfVar == "" || nascVar == "" || emailVar == "" || emailVar2 == "" || senhaVar == "" || senhaVar2 == "") {
+            modal.style.display = 'block'
+            modalImg.src = "assets/iconDanger.svg"
+            modalText.innerHTML = "Preencha todos os campos!";
             return false;
         }
+        else if (emailVar.includes("@") == false || emailVar2.includes("@") == false) {
+            modal.style.display = 'block'
+            modalImg.src = "assets/iconDanger.svg"
+            modalText.innerHTML = "Digite algo antes do @ nos campos de email!";
+            return false;
+        }
+        else if (emailVar.startsWith("@") || emailVar2.startsWith("@")) {
+            modal.style.display = 'block'
+            modalImg.src = "assets/iconDanger.svg"
+            modalText.innerHTML = "Digite algo antes do @ nos campos de email!";
+            return false;
+        }
+        else if (emailVar.endsWith("@") || emailVar2.endsWith("@")) {
+            modal.style.display = 'block'
+            modalImg.src = "assets/iconDanger.svg"
+            modalText.innerHTML = "Digite algo depois do @ nos campos de email!";
+            return false;
+        } else if (!passwordTest || !passwordTest2) {
+            modal.style.display = 'block'
+            modalImg.src = "assets/iconDanger.svg"
+            modalText.innerHTML = "insira uma senha entre 8 e 20 caracteres, com pelo menos uma letra maiuscula e uma letra minuscula, um número e um caractere especial!";
+            return false;
+        } else if (senhaVar.length != senhaVar2.length) {
+            modal.style.display = 'block'
+            modalImg.src = "assets/iconDanger.svg"
+            modalText.innerHTML = "insira o campo senha e confirmar senha iguais!";
+            return false;
+        }
+
         else {
             setInterval(sumirMensagem, 5000)
         }
@@ -109,14 +174,14 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                //cardErro.style.display = "block";
-
-               // mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+                modal.style.display = 'block'
+                modalImg.src = "assets/iconCheck.svg"
+                modalText.innerHTML = "Cadastro efetuado com sucesso!";
 
                 setTimeout(() => {
                     window.location = "signIn.html";
                 }, "1000")
-                
+
                 limparFormulario();
                 finalizarAguardar();
             } else {

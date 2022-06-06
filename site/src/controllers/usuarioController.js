@@ -190,6 +190,64 @@ function returnFkCliente(req, res) {
             }
         );
 }
+function metrics1(req, res) {
+
+    const fkConta = req.params.fkConta;
+
+    usuarioModel.metrics1(fkConta)
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function metrics2(req, res) {
+
+    const fkConta = req.params.fkConta;
+
+    usuarioModel.metrics2(fkConta)
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+function listarStatement(req, res) {
+
+    const fkConta = req.params.fkConta;
+
+    usuarioModel.listarStatement(fkConta)
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 
 function extratoRecebido(req, res) {
     var dateExtrato = req.body.dateExtratoServer; 
@@ -278,6 +336,9 @@ module.exports = {
     updateSaldoAtual,
     extratoEnviado,
     returnFkCliente,
+    metrics1,
+    metrics2,
+    listarStatement,
     extratoRecebido,
     cadastrar,
     listar,

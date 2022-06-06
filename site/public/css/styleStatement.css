@@ -1,0 +1,138 @@
+.metrics {
+    width: 70vw;
+    height: 32vh;
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+    justify-content: center;
+}
+
+.metrics1 {
+    background-color: #000;
+    width: 30vw;
+    display: flex;
+    flex-direction: row;
+    border-radius: 16px;
+}
+
+.imgMetrics {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.alignMetrics {
+    width: 53%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.h2White {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    text-align: center;
+    color: #fff;
+}
+
+.h2style {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 49px;
+    text-align: center;
+    background: linear-gradient(3.16deg, #1F8EBE 30.35%, #440495 46.4%, #440495 54.76%, #B102CD 62.28%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.statement {
+    margin-top: 8%;
+    height: 12vh;
+    border-color: rgb(0, 0, 0);
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px;
+    border-style: outset;
+    display: flex;
+    flex-direction: row;
+}
+
+.columnStatement {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2%;
+}
+
+.spanName {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    color: #000000;
+}
+
+.spanDate {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.3);
+}
+.daddy {
+    height: 70vh;
+    overflow-y: scroll;
+}
+.daddy::-webkit-scrollbar {
+    width: 12px;
+}
+.daddy::-webkit-scrollbar-thumb {
+    background: linear-gradient(91.16deg, #1F8EBE 39.35%, #440495 46.4%, #440495 54.76%, #B102CD 62.28%);
+    border-radius: 120px;
+    border: 2px solid white;
+}
+
+.statementBar {
+    width: 40%;
+    height: 80%;
+    margin-left: 5%;
+    background: linear-gradient(180deg, #1F8EBE 0%, #440495 32.01%, #440495 64.82%, #B102CD 100%);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-right: 12%;
+}
+
+.spanStatus {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    color: #FFFFFF;
+}
+
+.spanDesc {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 18px;
+    color: #000000;
+}

@@ -16,6 +16,16 @@ router.get("/listarConta/:id", function (req, res) {
 router.get("/returnFkCliente/:cpfCliente", function (req, res) {
     usuarioController.returnFkCliente(req, res);
 });
+router.get("/metrics1/:fkConta", function (req, res) {
+    usuarioController.metrics1(req, res);
+});
+router.get("/metrics2/:fkConta", function (req, res) {
+    usuarioController.metrics2(req, res);
+});
+router.get("/listarStatement/:fkConta", function (req, res) {
+    usuarioController.listarStatement(req, res);
+});
+
 
 //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 router.post("/cadastrar", function (req, res) {

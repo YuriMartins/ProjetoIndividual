@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/styleDashboard.css">
     <link rel="stylesheet" href="./css/styleTransfer.css">
+    <link rel="stylesheet" href="css/styleModal.css">
     <title>Transferência</title>
 </head>
 
@@ -20,7 +21,7 @@
         <img class="iconStatement" src="./assets/iconStatement.svg" alt="">
         <div>
             <img class="exitIcon" src="./assets/iconExit.svg" alt="">
-            <img class="imgLine" src="./\assets/iconLine.svg" alt="">
+            <img class="imgLine" src="./assets/iconLine.svg" alt="">
             <img class="imgConfig" src="./assets/iconConfig.svg" alt="">
         </div>
     </div>
@@ -53,13 +54,13 @@
 
         <form action="" class="formTrasfer">
             <h2 class="h2Title">Informe o cpf do beneficiário:</h2>
-            <input type="number" class="inputCpf" id="cpfInput">
+            <input type="text" class="inputCpf" id="cpfInput">
 
             <h2 class="h2Title">Valor de transfêrencia:</h2>
             <input type="number" class="inputTrasfer" id="valorTrasferInput">
 
             <h2 class="h2Title">Data de transferência:</h2>
-            <input type="datetime" class="inputDate" id="dateExtratoInput">
+            <input type="date" class="inputDate" id="dateExtratoInput" min="2022-06-05" value="2022-06-05">
             <h2 class="h2Title">Descrição:</h2>
             <div class="row10">
                 <textarea type="text" class="textAreaTrasfer" id="descExtratoInput"></textarea>
@@ -71,18 +72,39 @@
         </form>
     </div>
 
+    <div id="modal" class="modalBody">
+        <div class="modalReadPlus">
+            <div class="containerReadPlus">
+                <div class="modalCheck">
+                    <img id="modalImg" src="assets/iconCheck.svg" alt="check">
+                </div>
+                <button onclick="buttonBack()" class="modalBack">&times;</button>
+            </div>
+            <span id="modalText"></span>
+            <button class="button8" onclick="buttonBack()">Fechar</button>
+        </div>
+    </div>
+
+
+
 </body>
 
 </html>
 
 <script src="js/funcoes.js"></script>
 <script>
+
+
+    function buttonBack() {
+        modal.style.display = 'none'
+    }
+
     var saldoConta = 0
 
     usuario3.innerHTML = `${sessionStorage.nomeCliente}`;
     email.innerHTML = `${sessionStorage.emailCliente}`;
     var cpfListar = `${sessionStorage.cpfCliente}`;
-
+    
 
     function sideBarFunction() {
         side.style.display = `flex`
@@ -127,8 +149,11 @@
         cpfVar = cpfInput.value
         valorTrasferVar = valorTrasferInput.value
 
-        if (cpfVar == "") {
-
+        if (cpfVar == "" || valorTrasferVar == "" ||
+            dateExtratoInput.value == "" || descExtratoInput.value == "") {
+            modal.style.display = 'block'
+            modalImg.src = "assets/iconDanger.svg"
+            modalText.innerHTML = "Preencha todos os campos!";
             return false;
         }
         else {
@@ -169,7 +194,9 @@
         }).catch(function (erro) {
             console.log(erro);
         })
-
+        modal.style.display = 'block'
+        modalImg.src = "assets/iconDanger.svg"
+        modalText.innerHTML = "Houve um erro ao tentar autenticar o cpf!";
         return false;
     }
 
@@ -206,6 +233,9 @@
 
         } else {
             console.log("saldo menor que valor da Trasferencia!");
+            modal.style.display = 'block'
+            modalImg.src = "assets/iconDanger.svg"
+            modalText.innerHTML = "saldo menor que valor da Trasferencia!";
         }
     }
 
@@ -233,6 +263,9 @@
                 console.log(msg);
                 if (msg == "success") {
                     console.log("sucesso ao tentar atualizar o saldoAtual!");
+                    modal.style.display = 'block'
+                    modalImg.src = "assets/iconCheck.svg"
+                    modalText.innerHTML = "Transferência feita com sucesso!";
                 } else {
                     console.log("Houve um erro ao tentar atualizar o saldoAtual!");
                 }
