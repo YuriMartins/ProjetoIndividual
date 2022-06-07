@@ -251,11 +251,11 @@
     function minhaConta() {
         const idUsuario = sessionStorage.idCliente;
 
-        //setInterval(() => {
+        setInterval(() => {
         setTimeout(() => {
             minhaPoupanca()
         }, "1000")
-        //  }, "1000")
+          }, "1000")
 
 
         fetch(`/usuarios/listarConta/${idUsuario}`, {
@@ -475,6 +475,13 @@
 
         if (saldoConta >= valorTrasferVar) {
             console.log("saldo maior que valor da Trasferencia!");
+
+            setInterval(() => {
+        setTimeout(() => {
+            jurosPoupanca()
+        }, "1000")
+          }, "10000")
+
             fetch("/usuarios/updateSaldoPoupanca", {
                 method: "POST",
                 headers: {
@@ -502,6 +509,32 @@
             modalImg.src = "assets/iconDanger.svg"
             modalText.innerHTML = "saldo menor que valor da Trasferencia para a poupança!";
         }
+
+    }
+
+
+    function jurosPoupanca() {
+
+            fetch("/usuarios/jurosPoupanca", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    cpfServer: fkConta2,
+                }),
+            }).then((response) => {
+                response.json().then((data) => {
+                    const msg = data.mensagem;
+
+                    console.log(msg);
+                    if (msg == "success") {
+                        console.log("sucesso ao tentar fazer o juros da Poupança!");
+                    } else {
+                        console.log("Houve um erro ao tentar fazer o juros da Poupança!");
+                    }
+                });
+            });
 
     }
 

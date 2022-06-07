@@ -226,6 +226,25 @@ function updateSaldoPoupanca(req, res) {
         });
 }
 
+function jurosPoupanca(req, res) {
+    var cpf = req.body.cpfServer;
+
+    usuarioModel.jurosPoupanca(cpf)
+        .then((response) => {
+            const tamanho = response.affectedRows;
+
+            if (tamanho > 0) {
+                res.json({
+                    mensagem: "success",
+                });
+            } else {
+                res.json({
+                    mensagem: "error",
+                });
+            }
+        });
+}
+
 function resgatarPoupanca(req, res) {
     var valorTrasfer = req.body.valorTrasferServer;
     var cpf = req.body.cpfServer;
@@ -479,6 +498,7 @@ module.exports = {
     updateSaldo,
     updateSaldoAtual,
     updateSaldoPoupanca,
+    jurosPoupanca,
     resgatarPoupanca,
     resgatarPoupancaAtual,
     updateNovoPoupanca,

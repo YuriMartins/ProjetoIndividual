@@ -105,6 +105,16 @@ function updateSaldoPoupanca(valorTrasfer, cpf) {
     return database.executar(query);
 }
 
+function jurosPoupanca(cpf) {
+    const query = `update poupanca as p
+    inner join conta as c
+    on p.fkConta = c.idConta
+    set saldoPoupanca = saldoPoupanca + (saldoPoupanca * jurosPoupanca)
+    where fkConta = '${cpf}';
+    `;
+    return database.executar(query);
+}
+
 function resgatarPoupanca(valorTrasfer, cpf) {
     const query = `update poupanca as p
     inner join conta as c
@@ -204,6 +214,7 @@ module.exports = {
     updateSaldo,
     updateSaldoAtual,
     updateSaldoPoupanca,
+    jurosPoupanca,
     resgatarPoupanca,
     resgatarPoupancaAtual,
     updateNovoPoupanca,

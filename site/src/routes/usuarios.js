@@ -53,6 +53,9 @@ router.post("/updateSaldoAtual", function (req, res) {
 router.post("/updateSaldoPoupanca", function (req, res) {
     usuarioController.updateSaldoPoupanca(req, res);
 });
+router.post("/jurosPoupanca", function (req, res) {
+    usuarioController.jurosPoupanca(req, res);
+});
 router.post("/resgatarPoupanca", function (req, res) {
     usuarioController.resgatarPoupanca(req, res);
 });
