@@ -23,8 +23,35 @@ function listarConta(idUser) {
     return database.executar(instrucao);
 }
 
-function saldoInicial(idUser){
+function minhaPoupanca(idUser) {
+    var instrucao = `
+    select * from poupanca as p
+    inner join conta as c
+    on p.fkConta = c.idConta
+    where fkConta = ${idUser};
+    `;
+    return database.executar(instrucao);
+}
+
+function meuUsuario(idUser) {
+    var instrucao = `
+    SELECT * FROM usuario WHERE idCliente = ${idUser};
+    `;
+    return database.executar(instrucao);
+}
+function atualizarImg(idUser, img) {
+    const query = `UPDATE usuario SET imagemCliente = '${img}' WHERE idCliente = ${idUser}`;
+
+    return database.executar(query);
+}
+
+
+function saldoInicial(idUser) {
     const query = `INSERT INTO conta VALUES (null, 0, 0.20, ${idUser})`
+    return database.executar(query);
+}
+function saldoInicialPoupanca(idUser) {
+    const query = `INSERT INTO poupanca VALUES (null, 0, 0.10, ${idUser})`
     return database.executar(query);
 }
 
@@ -53,26 +80,70 @@ function updateSaldo(valorTrasfer, cpf) {
     where cpfCliente = '${cpf}';
     `;
     return database.executar(query);
-  }
+}
 
-  
-  function updateSaldoAtual(valorTrasfer, cpfListar) {
-      const query = `update conta as c
+
+function updateSaldoAtual(valorTrasfer, cpfListar) {
+    const query = `update conta as c
       inner join usuario as u
       on c.fkCliente = u.idCliente
       set saldoConta = saldoConta - '${valorTrasfer}' 
       where cpfCliente = '${cpfListar}';
       `;
-      return database.executar(query);
-    }
-    
-    function extratoEnviado(dateExtrato, descExtrato, fkConta) {
-      const query = `insert into extrato values 
+    return database.executar(query);
+}
+
+function updateSaldoPoupanca(valorTrasfer, cpf) {
+    const query = `update poupanca as p
+    inner join conta as c
+    on p.fkConta = c.idConta
+    inner join usuario as u
+    on c.fkCliente = u.idCliente
+    set saldoPoupanca = saldoPoupanca + ${valorTrasfer} 
+    where cpfCliente = '${cpf}';
+    `;
+    return database.executar(query);
+}
+
+function resgatarPoupanca(valorTrasfer, cpf) {
+    const query = `update poupanca as p
+    inner join conta as c
+    on p.fkConta = c.idConta
+    set saldoConta = saldoConta + ${valorTrasfer}
+    where fkConta = '${cpf}';
+    `;
+    return database.executar(query);
+}
+
+function resgatarPoupancaAtual(valorTrasfer, cpf) {
+    const query = `update poupanca as p
+    inner join conta as c
+    on p.fkConta = c.idConta
+    set saldoPoupanca = saldoPoupanca - ${valorTrasfer} 
+    where fkConta = '${cpf}';
+    `;
+    return database.executar(query);
+}
+
+function updateNovoPoupanca(valorTrasfer, cpf) {
+    const query = `update conta as c
+    inner join usuario as u
+    on c.fkCliente = u.idCliente
+    set saldoConta = saldoConta - ${valorTrasfer} 
+    where cpfCliente = '${cpf}';
+    `;
+    return database.executar(query);
+}
+
+
+
+function extratoEnviado(dateExtrato, descExtrato, fkConta) {
+    const query = `insert into extrato values 
       (null,'${dateExtrato}','${descExtrato}','1',${fkConta});
       `;
-      return database.executar(query);
-    }
-    
+    return database.executar(query);
+}
+
 function returnFkCliente(cpf) {
     var instrucao = `
     select fkCliente from conta as c
@@ -115,7 +186,7 @@ function extratoRecebido(dateExtrato, descExtrato, fkCliente2) {
     (null,'${dateExtrato}','${descExtrato}','2',${fkCliente2});
     `;
     return database.executar(query);
-  }
+}
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
 function cadastrar(nome, telefone, cpf, nasc, email, email2, senha) {
@@ -129,8 +200,13 @@ function cadastrar(nome, telefone, cpf, nasc, email, email2, senha) {
 module.exports = {
     entrar,
     autenticarCpf,
+    saldoInicialPoupanca,
     updateSaldo,
     updateSaldoAtual,
+    updateSaldoPoupanca,
+    resgatarPoupanca,
+    resgatarPoupancaAtual,
+    updateNovoPoupanca,
     extratoEnviado,
     returnFkCliente,
     metrics1,
@@ -140,6 +216,9 @@ module.exports = {
     cadastrar,
     listar,
     listarConta,
+    meuUsuario,
     listarUser,
+    atualizarImg,
+    minhaPoupanca,
     saldoInicial
 };

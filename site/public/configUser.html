@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IDCM</title>
+
+    <link rel="stylesheet" href="css/styleUserConfig.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/styleModal.css" />
+</head>
+
+<body onload="minhaConta()">
+    <header>
+        <nav>
+            <div class="logo"></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">dashboard</a></li>
+            </ul>
+            <button onclick="limparSessao()" class="button1">Sair</button>
+            </button>
+        </nav>
+    </header>
+
+    <div class="main">
+        <div class="titleUser">
+            <h1>Configurações de usuário</h1>
+        </div>
+
+        <div class="mainCard">
+            <div class="userConfig">
+                <div class="centerImg">
+                    <div id="imgCircle"></div>
+                    <div id="carregando"></div>
+                </div>
+                <h4 id="usuario"></h4>
+
+                <div class="upload-btn">
+                    <div class="center">
+                        <input id="attImg" style="height: 10vh;" onkeyup="mostrarImagem()" placeholder="URL Imagem" />
+                        <button onclick="salvarImagem()" class="labelInput">
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+
+                <h2 class="h2Small">Infromações da Poupança</h2>
+                <div class="row2">
+                    <div class="column1">
+                        <h2 class="h2Small">Juros</h2>
+                        <h4 id="spanJuros" class="h4Small"></h4>
+                    </div>
+                    <div class="column2">
+                        <h2 class="h2Small">Saldo Poupança</h2>
+                        <h4 id="spanSaldo" class="h4Small"></h4>
+                    </div>
+                    <div class="column3">
+                        <h2 class="h2Small">idPoupança</h2>
+                        <h4 id="spanIdPoupanca" class="h4Small"></h4>
+                    </div>
+                </div>
+                <button class="button6" onclick="resgatarPoupanca()">
+                    Resgatar Saldo
+                </button>
+
+            </div>
+
+            <div class="myProfile">
+                <h4 class="h2Profile">Empréstimo</h4>
+                <h4 style="margin-left: 10%; margin-right: 10%;">Encontre a melhor proposta de Empréstimo
+                    <span style="font-weight: bold; color: #000;">para você</span>
+                </h4>
+
+                <div class="column">
+                    <input id="cpfInput" class="inputLoan" type="text" placeholder="Digite seu CPF:" />
+                    <input id="valorEmprestimoInput" class="inputLoan" type="text"
+                        placeholder="Valor monetário Empréstimo:" />
+                </div>
+
+
+                <button onclick="trasfer()" class="button5" style="margin-bottom: 5%;">
+                    Run Empréstimo
+                </button>
+            </div>
+
+            <div class="subscription">
+                <h4 class="h2Profile">Poupança</h4>
+                <h4 style="margin-left: 1%; margin-right: 1%;">Encontre a melhor proposta de Investimento
+                    <span style="font-weight: bold; color: #000;">para você</span>
+                </h4>
+
+                <div class="column">
+                    <input id="cpfInput2" class="inputLoan" type="text" placeholder="Digite seu CPF:" />
+                    <input id="valorPoupancaInput" class="inputLoan" type="text"
+                        placeholder="Valor monetário Poupança:" />
+                </div>
+
+                <button onclick="trasfer2()" class="button5" style="margin-top: 17%;">
+                    Run Poupança
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modalBody">
+        <div class="modalReadPlus">
+            <div class="containerReadPlus">
+                <div class="modalCheck">
+                    <img id="modalImg" src="assets/iconCheck.svg" alt="check">
+                </div>
+                <button onclick="buttonBack()" class="modalBack">&times;</button>
+            </div>
+            <span id="modalText"></span>
+            <button class="button8" onclick="buttonBack()">Fechar</button>
+        </div>
+    </div>
+
+    <img class="wavesLogin" src="assets/wave.svg" alt="wavesLogin" />
+</body>
+
+</html>
+
+<script src="js/funcoes.js"></script>
+<script>
+
+    usuario.innerHTML = `${sessionStorage.nomeCliente}`;
+
+    function buttonBack() {
+        modal.style.display = 'none'
+    }
+
+    var ImagemUser = false;
+    var urlImagem = "";
+    carregando.innerHTML = `<img class="reloader" src="./assets/reload.gif" alt="FotoPerfil">`;
+    setTimeout(() => {
+        carregando.style.display = "none";
+    }, 1000);
+
+    meuUsuario()
+
+    const imagem_de_perfil = setInterval(() => {
+        ImagemUndefine();
+    }, 1000);
+
+    function meuUsuario() {
+        const idUser = sessionStorage.idCliente;
+
+
+        fetch(`/usuarios/meuUsuario/${idUser}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((resposta) => {
+            // saldoConta
+            resposta.json().then((data) => {
+                console.log(data);
+                const ImagemUser = data[0].ImagemCliente;
+                //saldoConta = data[0].saldoConta
+
+                // fkConta = data[0].fkCliente
+                // return fkConta
+
+
+                ImagemUser == null || ImagemUser == ""
+                    ? (imagemUsuario = true)
+                    : (imagemUsuario = false);
+                urlImagem = ImagemUser;
+            })
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+    }
+
+    function ImagemUndefine() {
+        if (imagemUsuario) {
+            imgCircle.innerHTML = `<img class="imgUser" src="assets/iconDefault.svg" alt="FotoPerfil">`;
+        } else {
+            imgCircle.innerHTML = `<img class="imgUser" src="${urlImagem}" alt="FotoPerfil">`;
+        }
+    }
+
+    function salvarImagem() {
+        const urlImg = attImg.value;
+        const idUser = sessionStorage.getItem("idCliente");
+
+        if (
+            (urlImg != "" &&
+                urlImg != null &&
+                urlImg.length > 0 &&
+                urlImg.endsWith(".png")) ||
+            urlImg.endsWith(".jpg") ||
+            urlImg.endsWith(".jpeg")
+        ) {
+            fetch("/usuarios/atualizar/imagem", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id: idUser,
+                    img: urlImg,
+                }),
+            }).then((response) => {
+                response.json().then((data) => {
+                    const mensagem = data.mensagem;
+
+                    if (mensagem == "success") {
+                        modal.style.display = "block"
+                        modalImg.src = "assets/iconCheck.svg"
+                        modalText.innerHTML = "Imagem de perfil atualizada!";
+                        attImg.value = "";
+                        meuUsuario();
+                        setTimeout(() => {
+                            imgCircle.innerHTML = `<img class="imgUser" src="${urlImagem}" alt="FotoPerfil">`;
+                        }, 1000);
+                    }
+                });
+            });
+        }
+    }
+
+    function mostrarImagem() {
+        clearInterval(imagem_de_perfil);
+        const urlImg = attImg.value;
+
+        if (urlImg == "") {
+            imagemUsuario == true ? (imagemUsuario = true) : (imagemUsuario = false);
+            urlImagem != "" ? (imagemUsuario = false) : (imagemUsuario = true);
+            meuUsuario();
+            ImagemUndefine();
+        } else {
+            if (
+                urlImg.endsWith(".png") ||
+                urlImg.endsWith(".jpg") ||
+                urlImg.endsWith(".jpeg")
+            ) {
+                imgCircle.innerHTML = `<img class="imgUser" src="${urlImg}" alt="Carregando...">`;
+            } else {
+                imgCircle.innerHTML = `<h1> URL Inválida! </h1>`;
+            }
+        }
+    }
+
+
+    function minhaConta() {
+        const idUsuario = sessionStorage.idCliente;
+
+        //setInterval(() => {
+        setTimeout(() => {
+            minhaPoupanca()
+        }, "1000")
+        //  }, "1000")
+
+
+        fetch(`/usuarios/listarConta/${idUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((resposta) => {
+            // saldoConta
+            resposta.json().then((data) => {
+                console.log(data);
+                saldoConta = data[0].saldoConta
+                fkConta = data[0].fkCliente
+                return saldoConta
+                return fkConta
+            })
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+
+    }
+
+
+    function minhaPoupanca() {
+        const idUsuario = fkConta;
+
+
+        fetch(`/usuarios/minhaPoupanca/${idUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((resposta) => {
+            // saldoConta
+            resposta.json().then((data) => {
+                console.log(data);
+                // saldoConta = data[0].saldoConta
+                idP = data[0].idPoupanca
+                saldoPoupanca = data[0].saldoPoupanca
+                juros = data[0].jurosPoupanca
+                fkConta2 = data[0].fkConta
+                spanJuros.innerHTML = `${juros}`
+                spanSaldo.innerHTML = `${saldoPoupanca}`
+                spanIdPoupanca.innerHTML = `${idP}`
+
+                return fkConta2
+                return saldoPoupanca
+            })
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+
+    }
+
+
+
+
+    function trasfer() {
+        //aguardar();
+        cpfVar = cpfInput.value
+        valorTrasferVar = valorEmprestimoInput.value
+
+        if (cpfVar == "" || valorTrasferVar == "") {
+            modal.style.display = 'block'
+            modalImg.src = "assets/iconDanger.svg"
+            modalText.innerHTML = "Preencha todos os campos!";
+            return false;
+        }
+        else {
+
+        }
+
+        console.log("FORM cpf: ", cpfVar);
+
+        fetch("/usuarios/autenticarCpf", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                cpfServer: cpfVar,
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO autenticarCpf()!")
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                });
+                updateSaldo()
+
+            } else {
+
+                console.log("Houve um erro ao tentar autenticar o cpf!");
+                modal.style.display = 'block'
+                modalImg.src = "assets/iconDanger.svg"
+                modalText.innerHTML = "Houve um erro ao tentar autenticar o cpf!";
+                return false;
+                resposta.text().then(texto => {
+                    //console.error(texto);
+                    // finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+        modal.style.display = 'block'
+        modalImg.src = "assets/iconCheck.svg"
+        modalText.innerHTML = "Empréstimo feito com sucesso!";
+        return false;
+    }
+
+    function updateSaldo() {
+
+        console.log(saldoConta)
+        console.log(valorTrasferVar)
+        fetch("/usuarios/updateSaldo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                valorTrasferServer: valorTrasferVar,
+                cpfServer: cpfVar,
+            }),
+        }).then((response) => {
+            response.json().then((data) => {
+                const msg = data.mensagem;
+
+                console.log(msg);
+                if (msg == "success") {
+                    console.log("sucesso ao tentar atualizar o saldo!");
+                } else {
+                    console.log("Houve um erro ao tentar atualizar o saldo!");
+                }
+            });
+        });
+
+    }
+
+    function trasfer2() {
+        //aguardar();
+        cpfVar = cpfInput2.value
+        valorTrasferVar = valorPoupancaInput.value
+
+        if (cpfVar == "" || valorTrasferVar == "") {
+            modal.style.display = 'block'
+            modalImg.src = "assets/iconDanger.svg"
+            modalText.innerHTML = "Preencha todos os campos!";
+            return false;
+        }
+        else {
+
+        }
+
+        console.log("FORM cpf: ", cpfVar);
+
+        fetch("/usuarios/autenticarCpf", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                cpfServer: cpfVar,
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO autenticarCpf()!")
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                });
+                updateSaldoPoupanca()
+                setTimeout(() => {
+                    updateNovoPoupanca()
+
+                }, "1000")
+
+
+            } else {
+
+                console.log("Houve um erro ao tentar autenticar o cpf!");
+                modal.style.display = 'block'
+                modalImg.src = "assets/iconDanger.svg"
+                modalText.innerHTML = "Houve um erro ao tentar autenticar o cpf!";
+                return false;
+                resposta.text().then(texto => {
+                    //console.error(texto);
+                    // finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+        modal.style.display = 'block'
+        modalImg.src = "assets/iconCheck.svg"
+        modalText.innerHTML = "Dinheiro colocado na poupança com sucesso!";
+        return false;
+    }
+
+    function updateSaldoPoupanca() {
+
+        console.log(saldoConta)
+        console.log(valorTrasferVar)
+
+        if (saldoConta >= valorTrasferVar) {
+            console.log("saldo maior que valor da Trasferencia!");
+            fetch("/usuarios/updateSaldoPoupanca", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    valorTrasferServer: valorTrasferVar,
+                    cpfServer: cpfVar,
+                }),
+            }).then((response) => {
+                response.json().then((data) => {
+                    const msg = data.mensagem;
+
+                    console.log(msg);
+                    if (msg == "success") {
+                        console.log("sucesso ao tentar atualizar o saldo Poupança!");
+                    } else {
+                        console.log("Houve um erro ao tentar atualizar o saldo Poupança!");
+                    }
+                });
+            });
+        } else {
+            console.log("saldo menor que valor da Trasferencia para Poupança!");
+            modal.style.display = 'block'
+            modalImg.src = "assets/iconDanger.svg"
+            modalText.innerHTML = "saldo menor que valor da Trasferencia para a poupança!";
+        }
+
+    }
+
+
+    function updateNovoPoupanca() {
+
+        // const a = minhaConta()
+        //console.log(a)
+
+
+        fetch("/usuarios/updateNovoPoupanca", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                valorTrasferServer: valorTrasferVar,
+                cpfServer: cpfVar,
+            }),
+        }).then((response) => {
+            response.json().then((data) => {
+                const msg = data.mensagem;
+
+                console.log(msg);
+                if (msg == "success") {
+                    console.log("sucesso ao tentar atualizar o saldoAtualPoupanca!");
+                } else {
+                    console.log("Houve um erro ao tentar atualizar o saldoAtualPoupanca!");
+                }
+            });
+        });
+    }
+
+    function resgatarPoupanca() {
+
+        console.log(saldoConta)
+
+        fetch("/usuarios/resgatarPoupanca", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                valorTrasferServer: saldoPoupanca,
+                cpfServer: fkConta2,
+            }),
+        }).then((response) => {
+            response.json().then((data) => {
+                const msg = data.mensagem;
+
+                console.log(msg);
+                if (msg == "success") {
+                    resgatarPoupancaAtual()
+                    console.log("sucesso ao tentar Resgatar Poupança!");
+                    modal.style.display = 'block'
+                    modalImg.src = "assets/iconCheck.svg"
+                    modalText.innerHTML = "Dinheiro resgatado com sucesso!";
+                } else {
+                    console.log("Houve um erro ao tentar Resgatar a Poupança!");
+                    console.log("sucesso ao tentar Resgatar Poupança!");
+                    modal.style.display = 'block'
+                    modalImg.src = "assets/iconDanger.svg"
+                    modalText.innerHTML = "Houve um erro ao tentar Resgatar a Poupança!";
+                }
+            });
+        });
+    }
+
+    function resgatarPoupancaAtual() {
+
+        console.log(saldoConta)
+
+        fetch("/usuarios/resgatarPoupancaAtual", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                valorTrasferServer: saldoPoupanca,
+                cpfServer: fkConta2,
+            }),
+        }).then((response) => {
+            response.json().then((data) => {
+                const msg = data.mensagem;
+
+                console.log(msg);
+                if (msg == "success") {
+                    console.log("sucesso ao tentar Resgatar PoupançaAtual!");
+
+                } else {
+                    console.log("Houve um erro ao tentar Resgatar a PoupançaAtual!");
+                    console.log("sucesso ao tentar Resgatar Poupança!");
+
+                }
+            });
+        });
+    }
+
+
+
+</script>

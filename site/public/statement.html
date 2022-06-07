@@ -10,11 +10,9 @@
     <title>Extrato</title>
 </head>
 
-<body onload="minhaConta(), validarSessao()">
+<body onload="minhaConta(), validarSessao(), meuUsuario()">
     <div class="sideBar" onclick="sideBarFunction()" id="sideBar">
-        <div>
-            <img src="./assets/iconDefault.svg" class="iconDefaultUser" alt="">
-        </div>
+        <div class="rowTitle" id="imagem_user"></div>
         <img class="iconWallet" src="./assets/iconWallet.svg" alt="">
         <img class="iconTrasfer" src="./assets/iconTrasfer.svg" alt="">
         <img class="iconStatement" src="./assets/iconStatement.svg" alt="">
@@ -43,7 +41,9 @@
         </a>
         <div>
             <h6 class="exitH6" onclick="limparSessao()">Sair</h6>
-            <h6 class="configH6">Configurações</h6>
+            <a href="configUser.html">
+                <h6 class="configH6">Configurações</h6>
+            </a>
         </div>
     </div>
     <div class="dashboard">
@@ -74,8 +74,8 @@
             </div>
         </div>
 
-        <div id="divDaddy" class="daddy" >
-            <div class="statement" >
+        <div id="divDaddy" class="daddy">
+            <div class="statement" style="display: none;">
                 <img src="assets/iconTrasferStatement.svg" height="74px" alt="">
                 <div class="columnStatement">
                     <span class="spanName" id="nameSpan"></span>
@@ -104,6 +104,46 @@
     var cpfListar = `${sessionStorage.cpfCliente}`;
 
 
+
+
+
+    function meuUsuario() {
+        const idUser = sessionStorage.idCliente;
+
+
+        fetch(`/usuarios/meuUsuario/${idUser}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((resposta) => {
+            // saldoConta
+            resposta.json().then((data) => {
+                console.log(data);
+                const ImagemUser = data[0].ImagemCliente;
+                // saldoConta = data[0].saldoConta
+                // fkConta = data[0].fkCliente
+                // return saldoConta
+                // return fkConta
+                if (ImagemUser == undefined) {
+                    imagem_user.innerHTML = `
+                <img id="imgUser" src="assets/iconDefault.svg">
+                `
+                } else {
+                    imagem_user.innerHTML = `
+                <img id="imgUser" src="${data[0].ImagemCliente}" width="80" style="border-radius: 40px;">
+                `
+                }
+
+            })
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+    }
+
+
     function sideBarFunction() {
         side.style.display = `flex`
         sideBar.addEventListener("dblclick", () => {
@@ -114,21 +154,21 @@
     function minhaConta() {
         const idUsuario = sessionStorage.idCliente;
 
+        setInterval(() => {
+            setTimeout(() => {
+                metrics1()
+            }, "1000")
+        }, "1000")
+
+
+
+        setInterval(() => {
+            setTimeout(() => {
+                metrics2()
+            }, "1000")
+        }, "1000")
+
         // setInterval(() => {
-        setTimeout(() => {
-            metrics1()
-        }, "1000")
-        // }, "1000")
-
-
-
-        //  setInterval(() => {
-        setTimeout(() => {
-            metrics2()
-        }, "1000")
-        //  }, "1000")
-
-        //setInterval(() => {
         setTimeout(() => {
             listarStatement()
         }, "1000")
@@ -184,7 +224,7 @@
                     listaDate.push(date)
                     listaDesc.push(descricao)
                     listaStatus.push(status)
-                    
+
                     if (Number(listaStatus[i]) == 1) {
                         var status = `Enviado`
                     }
@@ -209,11 +249,11 @@
                 <span class="spanDesc" id="descSpan">
                     ${listaDesc[i]}</span>
             </div>`
-            
+
                     nameSpan.innerHTML += `${listaNome[i]}`
                     dateSpan.innerHTML += `${listaDate[i]}`
                     descSpan.innerHTML += `${listaDesc[i]}`
-                   
+
                 }
 
                 //spanMetrics1.innerHTML = `${enviado}`;

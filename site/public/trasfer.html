@@ -11,11 +11,9 @@
     <title>Transferência</title>
 </head>
 
-<body onload="minhaConta(), validarSessao()">
+<body onload="minhaConta(), validarSessao(), meuUsuario()">
     <div class="sideBar" onclick="sideBarFunction()" id="sideBar">
-        <div>
-            <img src="./assets/iconDefault.svg" class="iconDefaultUser" alt="">
-        </div>
+        <div class="rowTitle" id="imagem_user"></div>
         <img class="iconWallet" src="./assets/iconWallet.svg" alt="">
         <img class="iconTrasfer" src="./assets/iconTrasfer.svg" alt="">
         <img class="iconStatement" src="./assets/iconStatement.svg" alt="">
@@ -44,7 +42,9 @@
         </a>
         <div>
             <h6 class="exitH6" onclick="limparSessao()">Sair</h6>
-            <h6 class="configH6">Configurações</h6>
+            <a href="configUser.html">
+                <h6 class="configH6">Configurações</h6>
+            </a>
         </div>
     </div>
     <div class="dashboard">
@@ -104,7 +104,45 @@
     usuario3.innerHTML = `${sessionStorage.nomeCliente}`;
     email.innerHTML = `${sessionStorage.emailCliente}`;
     var cpfListar = `${sessionStorage.cpfCliente}`;
+
+
     
+
+    function meuUsuario() {
+        const idUser = sessionStorage.idCliente;
+
+
+        fetch(`/usuarios/meuUsuario/${idUser}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((resposta) => {
+            // saldoConta
+            resposta.json().then((data) => {
+                console.log(data);
+                const ImagemUser = data[0].ImagemCliente;
+                // saldoConta = data[0].saldoConta
+                // fkConta = data[0].fkCliente
+                // return saldoConta
+                // return fkConta
+                if (ImagemUser == undefined) {
+                    imagem_user.innerHTML = `
+                <img id="imgUser" src="assets/iconDefault.svg">
+                `
+                } else {
+                    imagem_user.innerHTML = `
+                <img id="imgUser" src="${data[0].ImagemCliente}" width="80" style="border-radius: 40px;">
+                `
+                }
+
+            })
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+    }
 
     function sideBarFunction() {
         side.style.display = `flex`

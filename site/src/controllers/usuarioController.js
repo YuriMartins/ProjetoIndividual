@@ -40,6 +40,62 @@ function listarConta(req, res) {
         );
 }
 
+function minhaPoupanca(req, res) {
+    const idUser = req.params.id;
+
+    usuarioModel.minhaPoupanca(idUser)
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
+function meuUsuario(req, res) {
+    const idUser = req.params.id;
+
+    usuarioModel.meuUsuario(idUser)
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+function atualizarImg(req, res) {
+    const idUser = req.body.id;
+    const img = req.body.img;
+
+    usuarioModel.atualizarImg(idUser, img).then((response) => {
+        const tamanho = response.affectedRows;
+
+        if (tamanho > 0) {
+            res.json({
+                mensagem: "success",
+            });
+        } else {
+            res.json({
+                mensagem: "error",
+            });
+        }
+    });
+}
 
 function entrar(req, res) {
     var email = req.body.emailServer;
@@ -150,9 +206,90 @@ function updateSaldoAtual(req, res) {
         });
 }
 
+function updateSaldoPoupanca(req, res) {
+    var valorTrasfer = req.body.valorTrasferServer;
+    var cpf = req.body.cpfServer;
+
+    usuarioModel.updateSaldoPoupanca(valorTrasfer, cpf)
+        .then((response) => {
+            const tamanho = response.affectedRows;
+
+            if (tamanho > 0) {
+                res.json({
+                    mensagem: "success",
+                });
+            } else {
+                res.json({
+                    mensagem: "error",
+                });
+            }
+        });
+}
+
+function resgatarPoupanca(req, res) {
+    var valorTrasfer = req.body.valorTrasferServer;
+    var cpf = req.body.cpfServer;
+
+    usuarioModel.resgatarPoupanca(valorTrasfer, cpf)
+        .then((response) => {
+            const tamanho = response.affectedRows;
+
+            if (tamanho > 0) {
+                res.json({
+                    mensagem: "success",
+                });
+            } else {
+                res.json({
+                    mensagem: "error",
+                });
+            }
+        });
+}
+
+
+function resgatarPoupancaAtual(req, res) {
+    var valorTrasfer = req.body.valorTrasferServer;
+    var cpf = req.body.cpfServer;
+
+    usuarioModel.resgatarPoupancaAtual(valorTrasfer, cpf)
+        .then((response) => {
+            const tamanho = response.affectedRows;
+
+            if (tamanho > 0) {
+                res.json({
+                    mensagem: "success",
+                });
+            } else {
+                res.json({
+                    mensagem: "error",
+                });
+            }
+        });
+}
+
+function updateNovoPoupanca(req, res) {
+    var valorTrasfer = req.body.valorTrasferServer;
+    var cpf = req.body.cpfServer;
+
+    usuarioModel.updateNovoPoupanca(valorTrasfer, cpf)
+        .then((response) => {
+            const tamanho = response.affectedRows;
+
+            if (tamanho > 0) {
+                res.json({
+                    mensagem: "success",
+                });
+            } else {
+                res.json({
+                    mensagem: "error",
+                });
+            }
+        });
+}
+
 function extratoEnviado(req, res) {
-    var dateExtrato = req.body.dateExtratoServer; 
-    var descExtrato = req.body.descExtratoServer; 
+    var dateExtrato = req.body.dateExtratoServer;
+    var descExtrato = req.body.descExtratoServer;
     var fkConta = req.body.fkContaServer;
 
     usuarioModel.extratoEnviado(dateExtrato, descExtrato, fkConta)
@@ -250,8 +387,8 @@ function listarStatement(req, res) {
 }
 
 function extratoRecebido(req, res) {
-    var dateExtrato = req.body.dateExtratoServer; 
-    var descExtrato = req.body.descExtratoServer; 
+    var dateExtrato = req.body.dateExtratoServer;
+    var descExtrato = req.body.descExtratoServer;
     var fkCliente2 = req.body.fkClienteServer2;
 
     usuarioModel.extratoRecebido(dateExtrato, descExtrato, fkCliente2)
@@ -313,6 +450,13 @@ function cadastrar(req, res) {
                             console.log(resEffect);
                             res.json(resEffect)
                         })
+                        setTimeout(() => {
+                            usuarioModel.saldoInicialPoupanca(idUser).then((resEffect) => {
+                                console.log(resEffect);
+                                res.json(resEffect)
+                            })
+                        }, "1500")
+
                     })
                 }
             }
@@ -334,6 +478,10 @@ module.exports = {
     autenticarCpf,
     updateSaldo,
     updateSaldoAtual,
+    updateSaldoPoupanca,
+    resgatarPoupanca,
+    resgatarPoupancaAtual,
+    updateNovoPoupanca,
     extratoEnviado,
     returnFkCliente,
     metrics1,
@@ -343,5 +491,8 @@ module.exports = {
     cadastrar,
     listar,
     listarConta,
+    meuUsuario,
+    atualizarImg,
+    minhaPoupanca,
     testar
 }

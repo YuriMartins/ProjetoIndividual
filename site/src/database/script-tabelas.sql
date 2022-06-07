@@ -9,8 +9,9 @@ create table usuario(
 idCliente int primary key auto_increment,
 nomeCliente varchar(45),
 telefoneCliente varchar(16),
-cpfCliente varchar(16),
+cpfCliente varchar(16) unique, 
 dataNascCliente varchar(40),
+ImagemCliente text,
 emailCliente varchar(80),
 emailRecuperacao varchar(80),
 senhaCliente varchar(20)
@@ -19,11 +20,103 @@ create	table conta (
 idConta int primary key auto_increment,
 saldoConta float,
 cashBackConta float,
-dataTrasferencia datetime,
-descTrasferencia varchar(255),
 fkCliente int,
 foreign key (fkCliente) references usuario(idCliente)
 );
+
+create	table extrato (
+idExtrato int primary key auto_increment,
+dataExtrato varchar(20),
+descExtrato varchar(255),
+statusExtrato varchar(10),
+fkConta int,
+foreign key (fkConta) references conta(idConta)
+);
+
+create table poupanca (
+idPoupanca int primary key auto_increment,
+saldoPoupanca float,
+jurosPoupanca float,
+fkConta int,
+foreign key (fkConta) references conta(idConta)
+);
+
+select * from usuario;		
+select * from conta;			
+select * from extrato;		
+select * from poupanca;	
+
+select * from poupanca as p
+inner join conta as c
+on p.fkConta = c.idConta
+where fkConta = 1;
+
+update poupanca as p
+    inner join conta as c
+    on p.fkConta = c.idConta
+    set saldoConta = saldoConta + saldoPoupanca
+    where fkConta = '2';
+    
+    update poupanca as p
+    inner join conta as c
+    on p.fkConta = c.idConta
+    set saldoPoupanca = saldoPoupanca - saldoPoupanca
+    where fkConta = '2';
+
+update conta as c
+    inner join usuario as u
+    on c.fkCliente = u.idCliente
+    set saldoConta = saldoConta - 1
+    where cpfCliente = '2';
+
+ SELECT * FROM usuario WHERE idCliente = '1';
+
+insert into extrato values 
+(null,'04-06-2022','Transfer 1','1',1);
+
+	select count(idExtrato) as '' from extrato
+    where fkConta = 1 and statusExtrato = '1';
+
+    select fkCliente from conta as c
+    inner join usuario as u
+    on c.fkCliente = u.idCliente
+    where cpfCliente = '2';
+    
+    update usuario set cpfCliente = '2' where idCliente = 2;
+   
+	select nomeCliente, dataExtrato, statusExtrato, descExtrato from extrato as e
+    join conta as c
+    on e.fkConta = c.idConta
+    join usuario as u
+    on c.fkCliente = u.idCliente
+    where fkCliente = 2;
+
+
+
+
+select nomeCliente, saldoConta, dataExtrato, descExtrato, statusExtrato from extrato as e
+join conta as c
+on e.fkConta = c.idConta
+join usuario as u
+on c.fkCliente = u.idCliente;
+
+
+
+
+
+
+update conta as c
+inner join usuario as u
+on c.fkCliente = u.idCliente
+set saldoConta = saldoConta + 100
+where cpfCliente = '123.123.213-11';
+
+
+update conta as c
+    inner join usuario as u
+    on c.fkCliente = u.idCliente
+    set saldoConta = saldoConta - 100
+    where cpfCliente = '42';
 
 CREATE TABLE aviso (
 	id INT PRIMARY KEY AUTO_INCREMENT,

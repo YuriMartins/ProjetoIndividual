@@ -652,9 +652,10 @@ body {
     cursor: pointer;
 }
 
-.iconDefaultUser::selection {
-    background-color: transparent;
-}
+.rowTitle {
+    display: flex;
+    margin-bottom: 20%;
+  }
 
 .imgLine {
     margin-bottom: 20%;
